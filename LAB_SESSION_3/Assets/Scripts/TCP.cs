@@ -76,13 +76,13 @@ public class TCP
     {
         byte[] bufferData = new byte[1024];
         int lenght = socket.Receive(bufferData);
-        string msg = Encoding.ASCII.GetString(bufferData, 0, lenght);
+        string msg = Encoding.UTF8.GetString(bufferData, 0, lenght);
         return msg;
     }
 
     public byte[] ReceiveServer(object obj)
     {
-        socket = obj as Socket;
+        Socket socket = obj as Socket;
 
         while (true)
         {
@@ -105,7 +105,7 @@ public class TCP
 
     public string ReceiveServerMsg(object obj)
     {
-        socket = obj as Socket;
+        Socket socket = obj as Socket;
 
         while (true)
         {
@@ -115,7 +115,7 @@ public class TCP
             try
             {
                 length = socket.Receive(bufferData);
-                msg = Encoding.ASCII.GetString(bufferData, 0, length);
+                msg = Encoding.UTF8.GetString(bufferData, 0, length);
 
             }
             catch (Exception)
