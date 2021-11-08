@@ -1,13 +1,11 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - ChatRoom
+    - Client
     Unity.CollabProxy.Editor.dll:
     - Unity.Cloud.Collaborate.UserInterface.CollaborateWindow
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    Unity.Timeline.Editor.dll:
-    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -28,7 +26,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.InputField
     - UnityEngine.UI.Text
   sceneClasses:
-    Assets/Scenes/ChatCanvas.unity:
+    Assets/Scenes/Client.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -48,23 +46,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1476}
+      Script: {instanceID: 1474}
     - Class: 114
-      Script: {instanceID: 1948}
+      Script: {instanceID: 1946}
     - Class: 114
-      Script: {instanceID: 2076}
+      Script: {instanceID: 2224}
     - Class: 114
-      Script: {instanceID: 2226}
+      Script: {instanceID: 2324}
     - Class: 114
-      Script: {instanceID: 2326}
+      Script: {instanceID: 2472}
     - Class: 114
-      Script: {instanceID: 2474}
+      Script: {instanceID: 2514}
     - Class: 114
-      Script: {instanceID: 2516}
+      Script: {instanceID: 2652}
     - Class: 114
-      Script: {instanceID: 2654}
+      Script: {instanceID: 2730}
     - Class: 114
-      Script: {instanceID: 2732}
+      Script: {instanceID: 16108}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -180,7 +178,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 7ddb7c9489570b17725eaa5522929b62
+      Hash: 36724708ed7175e7e1d4f28ba69a24db
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ChatRoom
@@ -316,6 +314,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ContentSizeFitter
+  - hash:
+      serializedVersion: 2
+      Hash: cf69167eac63c99041bea6cc036335dc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Server
   - hash:
       serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
@@ -508,7 +512,13 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: cf69167eac63c99041bea6cc036335dc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Client
   platform: 19
   scenePathNames:
-  - Assets/Scenes/ChatCanvas.unity
-  playerPath: C:/Users/germanip/Desktop/ServerBuild/LAB_SESSION_3.exe
+  - Assets/Scenes/Client.unity
+  playerPath: C:/Users/germanip/Desktop/ClientBuild/LAB_SESSION_3.exe

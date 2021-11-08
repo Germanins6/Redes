@@ -108,16 +108,17 @@ public class TCP
         {
             byte[] bufferData = new byte[1024];
             int length;
-            string msg = "0";
+            string msg = "";
             try
             {
+                msg = "Waiting for message";
                 length = socket.Receive(bufferData);
                 msg = Encoding.UTF8.GetString(bufferData, 0, length);
 
             }
             catch (Exception)
             {
-                Debug.Log("Connection Failed");
+                msg = "Connection Failed";
             }
 
             return msg;
