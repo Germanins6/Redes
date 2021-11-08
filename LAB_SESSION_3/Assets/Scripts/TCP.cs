@@ -24,14 +24,14 @@ public class TCP
         CLIENT
     }
 
-    public TCP(tcpType type)
+    public TCP(tcpType type, string ip, Int32 port)
     {
 
         data = new byte[1024];
         socket = new Socket(AddressFamily.InterNetwork, 
             SocketType.Stream, 
             ProtocolType.Tcp);
-        ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6000);
+        ipep = new IPEndPoint(IPAddress.Parse(ip), port);
 
         if(type == tcpType.SERVER)
         {
@@ -51,7 +51,7 @@ public class TCP
         try
         {
             Socket client = server.EndAccept(ias);
-            //Thread Stuff new thread and start
+            //Thread Stuff new thread and starta
         }
         catch (Exception)
         {
@@ -80,10 +80,8 @@ public class TCP
         return msg;
     }
 
-    public byte[] ReceiveServer(object obj)
+    public byte[] ReceiveServer()
     {
-        Socket socket = obj as Socket;
-
         while (true)
         {
             byte[] bufferData = new byte[1024];
@@ -98,14 +96,13 @@ public class TCP
                 Debug.Log("Connection Failed");
             }
 
-            return bufferData;
+            return bufferData; 
         }
     }
 
 
-    public string ReceiveServerMsg(object obj)
+    public string ReceiveServerMsg()
     {
-        Socket socket = obj as Socket;
 
         while (true)
         {
