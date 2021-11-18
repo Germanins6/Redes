@@ -60,12 +60,11 @@ public class Server : MonoBehaviour
 
         serializer = new SerializePlayer();
 
-        Player germa = new Player(null, germá, 100.0f);
+        Player germa = new Player(null, "germá", 100.0f);
         serializer.Serialize("heyatesting", germa);
         Player newgerma = new Player(null);
-        serializer.Deserialize("heyatesting", newgerma);
-        newgerma.Score(30.f);
-        Debug.Log(newgerma.GetScore());
+        serializer.Deserialize("heyatesting", ref newgerma);
+        Debug.Log(newgerma.Score);
 
 
     }
@@ -90,7 +89,7 @@ public class Server : MonoBehaviour
     private void AcceptClients(IAsyncResult ias)
     {
         UdpClient listener = ias.AsyncState as UdpClient;
-        //Player newPlayer = new Player(listener.EndReceive(ias, );
+        Player newPlayer = new Player(null); //listener.EndReceive(ias, ref ipep);
         currentPlayers.Add(newPlayer);
 
         StartListening();
@@ -111,8 +110,8 @@ public class Server : MonoBehaviour
         foreach (Player user in currentPlayers)
         {
 
-        }
             //Broadcast(); Why recursive
+        }
     }
 
 }
@@ -132,7 +131,7 @@ public class SerializePlayer
     public void Serialize(string filename, Player playerData)
     {
         //Receive player and creates instance with original player data
-        Player playerInstance = new Player();
+        Player playerInstance = new Player(null);
         playerInstance = playerData; //Separated fields(?)
 
         //Write data from instance into document
@@ -162,7 +161,6 @@ public class SerializePlayer
         try
         {
             playerData = formatter.Deserialize(stream) as Player;
-            return playerInstance;
         }
         catch (SerializationException e)
         {
@@ -207,15 +205,29 @@ public class Player : ISerializable
         playerID = Guid.NewGuid();
     }
 
-    public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-        if (info == null)
-            throw;
+        //if (info == null)
+        //    throw;
 
-        info.AddValue()
+        //Serialize Player Data
+        info.AddValue("_socket", client);
+        info.AddValue("_position", y);
+        info.AddValue("_speed", paddleSpeed);
+        info.AddValue("_score", score);
+        info.AddValue("_name", playerName);
+        info.AddValue("_id", playerID);
     }
 
-
+    public Player(SerializationInfo info, StreamingContext context)
+    {
+        client = (UdpClient)info.GetValue("_socket", typeof(UdpClient));
+        y = (float)info.GetValue("_position", typeof(float));
+        paddleSpeed = (float)info.GetValue("_speed", typeof(float));
+        score = (float)info.GetValue("_score", typeof(float));
+        playerName = (string)info.GetValue("_name", typeof(string));
+        playerID = (Guid)info.GetValue("_id", typeof(Guid));
+    }
 
     //Getters and Setters
     public float Position
