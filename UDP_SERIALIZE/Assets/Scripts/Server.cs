@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using System.Net;
 using System.Net.Sockets;
@@ -29,6 +30,7 @@ public class Server : MonoBehaviour
     public IPEndPoint ipep;
     public EndPoint epo;
     bool initialized = false;
+    SerializePlayer serializer;
 
     /*---Should be doing a list for each player or just 2 clients??? CHECK---*/
     public List<Player> currentPlayers;
@@ -49,11 +51,23 @@ public class Server : MonoBehaviour
             initialized = true;
 
             Debug.Log("Server initialized in localhost:6000");
-        }   
-        catch(Exception e)
+        }
+        catch (Exception e)
         {
             Debug.LogWarning(e.ToString());
         }
+
+
+        serializer = new SerializePlayer();
+
+        Player germa = new Player(null, germá, 100.0f);
+        serializer.Serialize("heyatesting", germa);
+        Player newgerma = new Player(null);
+        serializer.Deserialize("heyatesting", newgerma);
+        newgerma.Score(30.f);
+        Debug.Log(newgerma.GetScore());
+
+
     }
 
     // Update is called once per frame
@@ -64,11 +78,11 @@ public class Server : MonoBehaviour
             return;
 
         //Check non-null data for each client
-        foreach(Player client in currentPlayers)
+        foreach (Player client in currentPlayers)
         {
 
         }
-        
+
         //TODO 5: If stream does have data available then call BroadcastFunction
     }
 
@@ -76,14 +90,13 @@ public class Server : MonoBehaviour
     private void AcceptClients(IAsyncResult ias)
     {
         UdpClient listener = ias.AsyncState as UdpClient;
-        Player newPlayer = new Player(listener.EndReceive(ias, );
+        //Player newPlayer = new Player(listener.EndReceive(ias, );
         currentPlayers.Add(newPlayer);
 
         StartListening();
 
         //TODO 7: BROADCAST THAT A NEW PLAYER HAS CONNECTED
     }
-
 
     //TODO 2: Make udp port receive permanent entry connections(just 2 players)
     private void StartListening()
@@ -96,13 +109,75 @@ public class Server : MonoBehaviour
     {
         //TODO 6: Serialize to xml
         foreach (Player user in currentPlayers)
-            Broadcast();
+        {
+
+        }
+            //Broadcast(); Why recursive
     }
+
 }
 
 
-[Serializable()]
-public class Player
+public class SerializePlayer
+{
+
+    IFormatter formatter;
+
+    //Constructor
+    public SerializePlayer()
+    {
+        formatter = new BinaryFormatter();
+    }
+
+    public void Serialize(string filename, Player playerData)
+    {
+        //Receive player and creates instance with original player data
+        Player playerInstance = new Player();
+        playerInstance = playerData; //Separated fields(?)
+
+        //Write data from instance into document
+        FileStream stream = new FileStream(filename, FileMode.Create);
+
+        //Prevent error if serialization not succesful
+        try
+        {
+            formatter.Serialize(stream, playerInstance);
+        }
+        catch (SerializationException e)
+        {
+            //Debug.Log(e.ToString());
+            throw;
+        }
+        finally
+        {
+            stream.Close();
+        }
+    }
+
+    //Should be returning a player?
+    public void Deserialize(string fileName, ref Player playerData)
+    {
+        FileStream stream = new FileStream(fileName, FileMode.Open);
+
+        try
+        {
+            playerData = formatter.Deserialize(stream) as Player;
+            return playerInstance;
+        }
+        catch (SerializationException e)
+        {
+            //Debug.LogWarning(e.ToString());
+            throw;
+        }
+        finally
+        {
+            stream.Close();
+        }
+    }
+}
+
+[Serializable]
+public class Player : ISerializable
 {
     UdpClient client;
     float y;
@@ -132,11 +207,34 @@ public class Player
         playerID = Guid.NewGuid();
     }
 
-    //Getters and Setters
-    public void SetPlayerPosition(float posY) { y = posY; }
-    public float GetPlayerPosition() { return y; }
+    public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        if (info == null)
+            throw;
 
-    public Guid GetPlayerID() { return playerID; }
+        info.AddValue()
+    }
+
+
+
+    //Getters and Setters
+    public float Position
+    {
+        get { return y; }
+        set { y = value; }
+    }
+
+    public float Score
+    {
+        get { return score; }
+        set { score = value; }
+    }
+
+    public Guid ID
+    {
+        get { return playerID; }
+        set { playerID = value; }
+    }
 
     //TODO: PADDLE POWER-UPS(?)
 
