@@ -144,7 +144,7 @@ public class SerializePlayer
         }
         catch (SerializationException e)
         {
-            //Debug.Log(e.ToString());
+            Debug.Log(e.ToString());
             throw;
         }
         finally
@@ -164,7 +164,7 @@ public class SerializePlayer
         }
         catch (SerializationException e)
         {
-            //Debug.LogWarning(e.ToString());
+            Debug.LogWarning(e.ToString());
             throw;
         }
         finally
