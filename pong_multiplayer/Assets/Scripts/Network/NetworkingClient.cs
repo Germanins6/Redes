@@ -9,6 +9,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using UnityEngine.UI;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class NetworkingClient : Networking
 {
@@ -24,6 +26,10 @@ public class NetworkingClient : Networking
     float currentTime;
     float timeOut;
     float lastPing;
+
+    //Input
+    private float yBound = 3.75f;
+    [SerializeField] private float speed = 7f;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +51,7 @@ public class NetworkingClient : Networking
     // Update is called once per frame
     void Update()
     {
-
+        SendInput();
     }
 
     void ReceiveMsg()
@@ -69,7 +75,9 @@ public class NetworkingClient : Networking
     {
         float movement;
         movement = Input.GetAxisRaw("Vertical");
-        byte[] input_send = new byte[movement];
-        udp_client.SendTo(input_send, input_send.Length, SocketFlags.None, ipep); //Send input to server
+        Vector2 paddlePosition = transform.position;
+        paddlePosition.y = Mathf.Clamp(paddlePosition.y + movement * speed * Time.deltaTime, -yBound, yBound);
+        transform.position = paddlePosition;
     }
+
 }
