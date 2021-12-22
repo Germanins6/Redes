@@ -17,6 +17,7 @@ public class NetworkingClient : Networking
     EndPoint Remote;
     byte[] data = new byte[1024];
     Thread TwaitMsg;
+    Thread TsendInp;
     int recv;
 
     //timers
@@ -36,6 +37,8 @@ public class NetworkingClient : Networking
 
         TwaitMsg = new Thread(ReceiveMsg);
         TwaitMsg.Start();
+        TsendInp = new Thread(SendInput);
+        TsendInp.Start();
 
     }
 
@@ -61,5 +64,12 @@ public class NetworkingClient : Networking
         byte[] data_send = Encoding.UTF8.GetBytes("ping"); //Sends Ping to the server
         udp_client.SendTo(data_send, data_send.Length, SocketFlags.None, ipep); //Send data to server
 
+    }
+    void SendInput()
+    {
+        float movement;
+        movement = Input.GetAxisRaw("Vertical");
+        byte[] input_send = new byte[movement];
+        udp_client.SendTo(input_send, input_send.Length, SocketFlags.None, ipep); //Send input to server
     }
 }
