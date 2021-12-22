@@ -1,190 +1,125 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.19f1 (68f137dc9bbe) revision 6877495'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Home; OS build 19043.1348; Version 2009; 64bit' Language: 'es' Physical Memory: 16314 MB
+OS: 'Windows 10 Pro; OS build 19042.1415; Version 2009; 64bit' Language: 'es' Physical Memory: 8131 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
 COMMAND LINE ARGUMENTS:
-C:\Program Files\Unity\2020.3.19f1\Editor\Unity.exe
+C:\Program Files\Unity\Hub\Editor\2020.3.19f1\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/germa/OneDrive/Documentos/GitHub/Redes/pong_multiplayer
+C:/Users/Pol/Documents/GitHub/Redes/pong_multiplayer
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-53591
-Successfully changed project path to: C:/Users/germa/OneDrive/Documentos/GitHub/Redes/pong_multiplayer
-C:/Users/germa/OneDrive/Documentos/GitHub/Redes/pong_multiplayer
+63593
+Successfully changed project path to: C:/Users/Pol/Documents/GitHub/Redes/pong_multiplayer
+C:/Users/Pol/Documents/GitHub/Redes/pong_multiplayer
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 59.15 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 50.89 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.19f1 (68f137dc9bbe)
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/2020.3.19f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/germa/OneDrive/Documentos/GitHub/Redes/pong_multiplayer/Assets
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Pol/Documents/GitHub/Redes/pong_multiplayer/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: Radeon RX 590 Series (ID=0x67df)
+    Renderer: NVIDIA GeForce GTX 1050 Ti (ID=0x1c82)
     Vendor:   
-    VRAM:     8171 MB
-    Driver:   27.20.22025.1006
+    VRAM:     4018 MB
+    Driver:   27.21.14.5671
 Initialize mono
-Mono path[0] = 'C:/Program Files/Unity/2020.3.19f1/Editor/Data/Managed'
-Mono path[1] = 'C:/Program Files/Unity/2020.3.19f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
-Mono config path = 'C:/Program Files/Unity/2020.3.19f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56740
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56164
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/2020.3.19f1/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
-Register platform support module: C:/Program Files/Unity/2020.3.19f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003194 seconds.
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.003871 seconds.
 Native extension for WindowsStandalone target not found
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 42.32 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 48.50 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.247 seconds
+- Completed reload, in  1.424 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2247ms)
-		BeginReloadAssembly (60ms)
+	ReloadAssembly (1425ms)
+		BeginReloadAssembly (83ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (435ms)
-			LoadAssemblies (57ms)
+		EndReloadAssembly (534ms)
+			LoadAssemblies (79ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (157ms)
+			SetupTypeCache (185ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (28ms)
-			SetupLoadedEditorAssemblies (171ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (217ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (5ms)
+				InitializePlatformSupportModulesInManaged (4ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (42ms)
-				BeforeProcessingInitializeOnLoad (15ms)
-				ProcessInitializeOnLoadAttributes (79ms)
-				ProcessInitializeOnLoadMethodAttributes (29ms)
+				RefreshPlugins (49ms)
+				BeforeProcessingInitializeOnLoad (20ms)
+				ProcessInitializeOnLoadAttributes (108ms)
+				ProcessInitializeOnLoadMethodAttributes (35ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.004129 seconds.
+Registered in 0.006175 seconds.
 Begin MonoManager ReloadAssembly
-Symbol file data-0000010E4110E020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF4A1710 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E4108AE50 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF22C020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E427A3C20 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E427A3C20 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\PsdPlugin.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF66B460 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E421D7290 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E427A3C20 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E427A3C20 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42C44040 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E40FF1460 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E418339C0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42C72250 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E427A3C20 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42C72250 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Path.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41145E40 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E421D7290 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E413D9020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E421D7290 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41385020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E411FA010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF22C020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41412230 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42922C20 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF2D0DB0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E413B2C30 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF22C020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41005E70 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41005E70 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E418339C0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E418C6230 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll
+Symbol file data-00000139F5306B10 doesn't match image C:\Users\Pol\Documents\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Assembly-CSharp.dll
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 41.98 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 47.61 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.155 seconds
+- Completed reload, in  1.445 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1155ms)
-		BeginReloadAssembly (154ms)
+	ReloadAssembly (1446ms)
+		BeginReloadAssembly (202ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
+			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (22ms)
-		EndReloadAssembly (927ms)
-			LoadAssemblies (98ms)
+			CreateAndSetChildDomain (24ms)
+		EndReloadAssembly (1157ms)
+			LoadAssemblies (133ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (295ms)
+			SetupTypeCache (371ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (45ms)
-			SetupLoadedEditorAssemblies (363ms)
+			RebuildScriptCaches (60ms)
+			SetupLoadedEditorAssemblies (442ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (5ms)
+				InitializePlatformSupportModulesInManaged (4ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (42ms)
-				BeforeProcessingInitializeOnLoad (83ms)
-				ProcessInitializeOnLoadAttributes (206ms)
-				ProcessInitializeOnLoadMethodAttributes (16ms)
-				AfterProcessingInitializeOnLoad (11ms)
+				RefreshPlugins (48ms)
+				BeforeProcessingInitializeOnLoad (106ms)
+				ProcessInitializeOnLoadAttributes (249ms)
+				ProcessInitializeOnLoadMethodAttributes (18ms)
+				AfterProcessingInitializeOnLoad (18ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (8ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 0.49 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.53 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2112 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 95.4 MB.
 System memory in use after: 95.5 MB.
 
 Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 2551.
-Total: 3.340600 ms (FindLiveObjects: 0.216500 ms CreateObjectMapping: 0.051400 ms MarkObjects: 2.993000 ms  DeleteObjects: 0.078600 ms)
+Total: 4.379600 ms (FindLiveObjects: 0.291400 ms CreateObjectMapping: 0.197800 ms MarkObjects: 3.799400 ms  DeleteObjects: 0.089400 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -198,161 +133,80 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  path: Assets/Bouncy.physicsMaterial2D
-  artifactKey: Guid(1d1989eea676069488ba43542997b5ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Bouncy.physicsMaterial2D using Guid(1d1989eea676069488ba43542997b5ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8e05a44546df87c1e083207cf01c382') in 0.039122 seconds 
-  Import took 0.044720 seconds .
+  path: Assets/Scripts/Network/NetworkingClient.cs
+  artifactKey: Guid(831ed7d66fd8da744ba0450dcd5a550a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Network/NetworkingClient.cs using Guid(831ed7d66fd8da744ba0450dcd5a550a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5cafbd978447374660efd1a94d66a65d') in 0.039060 seconds 
+  Import took 0.043748 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 75.979173 seconds.
+  Time since last request: 0.000462 seconds.
   path: Assets/Scripts
   artifactKey: Guid(1ee7a52755dcd96489679fef1a4a458e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts using Guid(1ee7a52755dcd96489679fef1a4a458e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6947231d0d5b873821d6cb939497bd3') in 0.008026 seconds 
-  Import took 0.011517 seconds .
+Start importing Assets/Scripts using Guid(1ee7a52755dcd96489679fef1a4a458e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c6d8afabc8aee839d79a8dbcb12748e') in 0.002550 seconds 
+  Import took 0.006389 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1.044969 seconds.
-  path: Assets/Scripts/Networking.cs
-  artifactKey: Guid(73a2ec881be1c0244b0ebd09342140f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Networking.cs using Guid(73a2ec881be1c0244b0ebd09342140f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7167d69e9f3a315f44b8ecc540c5600') in 0.016953 seconds 
-  Import took 0.022302 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.660030 seconds.
+  Time since last request: 0.000357 seconds.
   path: Assets/Scripts/Network
   artifactKey: Guid(257e8c412b9b0304184e4bfbb2019336) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Network using Guid(257e8c412b9b0304184e4bfbb2019336) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b86d34796d3dc62e5f87c1902cab2b5') in 0.008165 seconds 
-  Import took 0.012091 seconds .
+Start importing Assets/Scripts/Network using Guid(257e8c412b9b0304184e4bfbb2019336) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f7d465c4fa7af1e3ecaaa34a734c26a') in 0.003151 seconds 
+  Import took 0.007943 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.672881 seconds.
-  path: Assets/Scripts/Game
-  artifactKey: Guid(7ce4cc1fa4429134ca0e0b4084f7177e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Game using Guid(7ce4cc1fa4429134ca0e0b4084f7177e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c8ed32a2197885ac278c2df6a5652ca') in 0.007892 seconds 
-  Import took 0.011764 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.600270 seconds.
-  path: Assets/Scripts/Ball.cs
-  artifactKey: Guid(8b212bbc953d781409f501f3bd4f8df7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Ball.cs using Guid(8b212bbc953d781409f501f3bd4f8df7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b44f9d65fb21d3d7a2a15d586d2674fb') in 0.006608 seconds 
-  Import took 0.010159 seconds .
+  Time since last request: 51.875281 seconds.
+  path: Assets/Scripts/Network/NetworkingClient.cs
+  artifactKey: Guid(831ed7d66fd8da744ba0450dcd5a550a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Network/NetworkingClient.cs using Guid(831ed7d66fd8da744ba0450dcd5a550a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6981f8f2bbec9c2a57af7d24dc4e58b') in 0.018183 seconds 
+  Import took 0.025332 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004720 seconds.
+Registered in 0.005704 seconds.
 Begin MonoManager ReloadAssembly
-Symbol file data-0000010E413D9020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF22C020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E418339C0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF499700 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E412DD420 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45900030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\PsdPlugin.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42E30020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E40E53010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E46432030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45A1C030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E412F1850 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41543020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF3C3750 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42E30020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45900030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF195010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Path.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41318860 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E40E53010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E4110E020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E40E53010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E465F5090 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42C34030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E418339C0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E4156BD00 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E418339C0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E4119F010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E46432030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF3C3750 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41068010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF195010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010FFF3C3750 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E46432030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Native extension for OSXStandalone target not found
 Refreshing native plugins compatible for Editor in 0.50 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.114 seconds
+- Completed reload, in  4.135 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1114ms)
-		BeginReloadAssembly (132ms)
+	ReloadAssembly (4135ms)
+		BeginReloadAssembly (157ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (8ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (40ms)
-		EndReloadAssembly (894ms)
-			LoadAssemblies (112ms)
+			CreateAndSetChildDomain (46ms)
+		EndReloadAssembly (3893ms)
+			LoadAssemblies (127ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (303ms)
+			SetupTypeCache (366ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (51ms)
-			SetupLoadedEditorAssemblies (326ms)
+			RebuildScriptCaches (48ms)
+			SetupLoadedEditorAssemblies (3232ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (6ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (93ms)
-				ProcessInitializeOnLoadAttributes (211ms)
-				ProcessInitializeOnLoadMethodAttributes (6ms)
-				AfterProcessingInitializeOnLoad (9ms)
+				BeforeProcessingInitializeOnLoad (109ms)
+				ProcessInitializeOnLoadAttributes (3095ms)
+				ProcessInitializeOnLoadMethodAttributes (7ms)
+				AfterProcessingInitializeOnLoad (14ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (11ms)
+			AwakeInstancesAfterBackupRestoration (13ms)
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.48 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.72 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2089 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 93.6 MB.
 System memory in use after: 93.7 MB.
 
 Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 2554.
-Total: 3.248400 ms (FindLiveObjects: 0.223500 ms CreateObjectMapping: 0.047800 ms MarkObjects: 2.958600 ms  DeleteObjects: 0.017200 ms)
+Total: 3.943100 ms (FindLiveObjects: 0.273400 ms CreateObjectMapping: 0.167100 ms MarkObjects: 3.471900 ms  DeleteObjects: 0.029100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -364,157 +218,4 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 8.048695 seconds.
-  path: Assets/Scripts/NetworkingServer.cs
-  artifactKey: Guid(0cfe1bb73f942e042ac870e32d89907a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/NetworkingServer.cs using Guid(0cfe1bb73f942e042ac870e32d89907a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22e13714532a1efdf073087752da0912') in 0.014870 seconds 
-  Import took 0.019634 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000263 seconds.
-  path: Assets/Scripts/Server.cs
-  artifactKey: Guid(27e4d83858955cf40a597a19b223fe26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Server.cs using Guid(27e4d83858955cf40a597a19b223fe26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e14ffd649bf2c2574865343adf8e251') in 0.007243 seconds 
-  Import took 0.010634 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004444 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-0000010E44BA4060 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42728020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E43168010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E40DFA030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E412DD420 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45B6E010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\PsdPlugin.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42E30020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E40E53010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E412A8010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E44DAB010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E412F1850 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45664010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E43168010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E42E30020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45B6E010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45B6E010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Path.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E40DFA030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E46030010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E4110E020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E46030010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45C810D0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E411FA010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E43168010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E475D5020 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E418339C0 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E4119F010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E412A8010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41AD8030 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E41068010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E45B6E010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E43168010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000010E412A8010 doesn't match image C:\Users\germa\OneDrive\Documentos\GitHub\Redes\pong_multiplayer\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 0.48 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.105 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1106ms)
-		BeginReloadAssembly (143ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (42ms)
-		EndReloadAssembly (888ms)
-			LoadAssemblies (102ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (293ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (47ms)
-			SetupLoadedEditorAssemblies (333ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (6ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (95ms)
-				ProcessInitializeOnLoadAttributes (215ms)
-				ProcessInitializeOnLoadMethodAttributes (6ms)
-				AfterProcessingInitializeOnLoad (9ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (11ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.49 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2089 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.6 MB.
-System memory in use after: 93.7 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 2557.
-Total: 3.141500 ms (FindLiveObjects: 0.213900 ms CreateObjectMapping: 0.049200 ms MarkObjects: 2.861200 ms  DeleteObjects: 0.016000 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 5.471408 seconds.
-  path: Assets
-  artifactKey: Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets using Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42d402b061de3733987d63b9cc3b64de') in 0.013443 seconds 
-  Import took 0.018208 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.757363 seconds.
-  path: Assets/2D PhysMat
-  artifactKey: Guid(fa104fc6edea88c4bb9a4a105a49d149) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/2D PhysMat using Guid(fa104fc6edea88c4bb9a4a105a49d149) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '303fb0ff127f41eb9b32ebd70dfe6a9b') in 0.012264 seconds 
-  Import took 0.019360 seconds .
-
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
