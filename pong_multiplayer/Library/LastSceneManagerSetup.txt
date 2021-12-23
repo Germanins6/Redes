@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/pongo.unity
+- path: Assets/Scenes/ServerClientUDPTest.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

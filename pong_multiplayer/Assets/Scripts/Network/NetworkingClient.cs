@@ -21,6 +21,8 @@ public class NetworkingClient : Networking
     Thread TwaitMsg;
     Thread TsendInp;
     int recv;
+    Guid id = Guid.NewGuid();
+
 
     //timers
     float currentTime;
@@ -35,15 +37,15 @@ public class NetworkingClient : Networking
     void Start()
     {
         udp_client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-        ipep = new IPEndPoint(IPAddress.Any, 6000);
-        sender = new IPEndPoint(IPAddress.Any, 6000);
+        ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6000);
+        sender = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6000);
         Remote = sender;
 
         udp_client.Connect(ipep);
 
         TwaitMsg = new Thread(ReceiveMsg);
         TwaitMsg.Start();
-        TsendInp = new Thread(SendInput);
+        TsendInp = new Thread(SendMsg);
         TsendInp.Start();
 
     }
@@ -51,7 +53,9 @@ public class NetworkingClient : Networking
     // Update is called once per frame
     void Update()
     {
-        SendInput();
+        //TODO
+        if (Input.GetKeyDown(KeyCode.L))
+            SendMsg();
     }
 
     void ReceiveMsg()
@@ -65,19 +69,18 @@ public class NetworkingClient : Networking
 
     }
 
-    void SendMsg()
+    public void SendMsg()
     {
-        byte[] data_send = Encoding.UTF8.GetBytes("ping"); //Sends Ping to the server
+        byte[] data_send = Encoding.UTF8.GetBytes("Cliennt " + id.ToString() + "sendinng message to server"); //Sends Ping to the server
         udp_client.SendTo(data_send, data_send.Length, SocketFlags.None, ipep); //Send data to server
-
     }
-    void SendInput()
-    {
-        float movement;
-        movement = Input.GetAxisRaw("Vertical");
-        Vector2 paddlePosition = transform.position;
-        paddlePosition.y = Mathf.Clamp(paddlePosition.y + movement * speed * Time.deltaTime, -yBound, yBound);
-        transform.position = paddlePosition;
-    }
+    //void SendInput()
+    //{
+    //    float movement;
+    //    movement = Input.GetAxisRaw("Vertical");
+    //    Vector2 paddlePosition = transform.position;
+    //    paddlePosition.y = Mathf.Clamp(paddlePosition.y + movement * speed * Time.deltaTime, -yBound, yBound);
+    //    transform.position = paddlePosition;
+    //}
 
 }

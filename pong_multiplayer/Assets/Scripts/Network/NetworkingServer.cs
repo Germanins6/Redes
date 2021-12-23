@@ -6,18 +6,24 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+using System.Text;
+using UnityEngine.UI;
 
 public class NetworkingServer : Networking
 {
 
-    private const int listenPort = 6000;
+    public Text updateText;
+    const int listenPort = 6000;
 
-    UdpClient listener;
-    public IPEndPoint ipep;
-    public EndPoint epo;
-    bool initialized = false;
-    SerializePlayer serializer;
+    Socket listener;
+    Thread ThreadReceive;
 
+    IPEndPoint sender;
+    EndPoint remote;
+
+    int recv;
+    byte[] data;
 
     /*---Should be doing a list for each player or just 2 clients??? CHECK---*/
     public List<Player> currentPlayers;
@@ -31,14 +37,17 @@ public class NetworkingServer : Networking
         //Initialize UDP server
         try
         {
-            //TODO 1: Connect UPD socket to local network
-            listener = new UdpClient(listenPort);
-            ipep = new IPEndPoint(IPAddress.Any, listenPort);
+            listener = new Socket(AddressFamily.InterNetwork,
+                SocketType.Dgram, ProtocolType.Udp);
 
-            StartListening();
-            initialized = true;
+            IPEndPoint ipep = new IPEndPoint(IPAddress.Any, listenPort);
+            listener.Bind(ipep);
 
-            Debug.Log("Server initialized in localhost:6000");
+            sender = new IPEndPoint(IPAddress.Any, listenPort);
+            remote = (EndPoint)(sender);
+
+            ThreadReceive = new Thread(Receive);
+            ThreadReceive.Start();
         }
         catch (Exception e)
         {
@@ -47,23 +56,24 @@ public class NetworkingServer : Networking
    
     }
 
-
-    //Receive client connection and store into player list
-    private void AcceptClients(IAsyncResult ias)
+    public void Receive()
     {
-        UdpClient listener = ias.AsyncState as UdpClient;
-        Player newPlayer = new Player(null); //listener.EndReceive(ias, ref ipep);
-        currentPlayers.Add(newPlayer);
+        data = new byte[1024];
 
-        StartListening();
-
-        //TODO 7: BROADCAST THAT A NEW PLAYER HAS CONNECTED
+        while (true)
+        {
+            recv = listener.ReceiveFrom(data, ref remote);
+            Debug.Log(Encoding.UTF8.GetString(data, 0, recv));
+            updateText.text = Encoding.UTF8.GetString(data, 0, recv);
+            Thread.Sleep(500);
+        }
     }
 
-    //TODO 2: Make udp port receive permanent entry connections(just 2 players)
-    private void StartListening()
-    {
-        listener.BeginReceive(AcceptClients, listener);
+    public void Send(string msg) {
+
+        byte[] data = new byte[1024];
+        data = Encoding.UTF8.GetBytes(msg);
+        listener.SendTo(data, data.Length, SocketFlags.None, remote);
     }
 
     //TODO 3: Send serialized data to each player in game session
@@ -80,16 +90,24 @@ public class NetworkingServer : Networking
     // Update is called once per frame
     void Update()
     {
-        //If server didn't initialize can't update
-        if (!initialized)
-            return;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            string msg = "Server localhost 127.0.0.1 enviando mensaje";
+            Send(msg);
+            Debug.Log(msg);
+        }
 
         //Check non-null data for each client
         foreach (Player client in currentPlayers)
         {
-
+           
         }
 
-        //TODO 5: If stream does have data available then call BroadcastFunction
+    }
+
+    private void OnDestroy()
+    {
+        ThreadReceive.Abort();
+        listener.Close();
     }
 }
