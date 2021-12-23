@@ -14,40 +14,22 @@ public class NetworkingServer : Networking
 {
 
     public Text updateText;
-    const int listenPort = 6000;
-
-    Socket listener;
-    Thread ThreadReceive;
-
-    IPEndPoint sender;
-    EndPoint remote;
-
-    int recv;
-    byte[] data;
 
     /*---Should be doing a list for each player or just 2 clients??? CHECK---*/
     public List<Player> currentPlayers;
 
-    // Start is called before the first frame update
+    //Server Start connnection
     void Start()
     {
-
         currentPlayers = new List<Player>();
 
         //Initialize UDP server
         try
         {
-            listener = new Socket(AddressFamily.InterNetwork,
-                SocketType.Dgram, ProtocolType.Udp);
-
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Any, listenPort);
             listener.Bind(ipep);
 
-            sender = new IPEndPoint(IPAddress.Any, listenPort);
-            remote = (EndPoint)(sender);
-
-            ThreadReceive = new Thread(Receive);
-            ThreadReceive.Start();
+            ThreadRecv = new Thread(Receive);
+            ThreadRecv.Start();
         }
         catch (Exception e)
         {
@@ -64,7 +46,6 @@ public class NetworkingServer : Networking
         {
             recv = listener.ReceiveFrom(data, ref remote);
             Debug.Log(Encoding.UTF8.GetString(data, 0, recv));
-            updateText.text = Encoding.UTF8.GetString(data, 0, recv);
             Thread.Sleep(500);
         }
     }
@@ -90,9 +71,9 @@ public class NetworkingServer : Networking
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
-            string msg = "Server localhost 127.0.0.1 enviando mensaje";
+            string msg = "Server localhost 127.0.0.1 sending message";
             Send(msg);
             Debug.Log(msg);
         }
@@ -107,7 +88,7 @@ public class NetworkingServer : Networking
 
     private void OnDestroy()
     {
-        ThreadReceive.Abort();
+        ThreadRecv.Abort();
         listener.Close();
     }
 }

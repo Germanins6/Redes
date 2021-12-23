@@ -638,4 +638,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/germa/OneDrive/Desktop/Client/pong_multiplayer.exe
+  playerPath: C:/Users/germa/OneDrive/Desktop/Server/pong_multiplayer.exe
