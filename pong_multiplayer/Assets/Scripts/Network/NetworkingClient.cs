@@ -14,66 +14,63 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class NetworkingClient : Networking
 {
+    private UdpClient client;
+    public IPEndPoint ipep;
+    EndPoint remote;
+    private const int listenPort = 6000;
+    Thread ThreadRecv;
+    Thread ThreadSnd;
+    int recv;
+    byte[] data = new byte[1024];
+    string text;
 
-    //Receive the current state of a client
-    public enum ClientState
-    {
-        CS_Error = -1,
-        CS_Initialize,
-        CS_Playing,
-        CS_Disconnected,
-        CS_Max
-    }
-  
+    private NetworkStream stream;
+    private StreamWriter writer;
+    private StreamReader reader;
+
     //Each client get assigned a UUID
     Guid id = Guid.NewGuid();
-    ClientState playerState;
 
-    #region PongStuff
-    //timers
-    float currentTime;
-    float timeOut;
-    float lastPing;
-
-    //Input
-    private float yBound = 3.75f;
-    [SerializeField] private float speed = 7f;
-    #endregion PongStuff
-
-    // Client Start connection
+    // Start is called before the first frame update
     void Start()
     {
-        try {
-            listener.Connect(ipep);
+        try
+        {
+            client = new UdpClient("127.0.0.1", 6000);
+            ipep = new IPEndPoint(IPAddress.Any, listenPort);
+            client.Connect(ipep);
 
             ThreadRecv = new Thread(ReceiveMsg);
             ThreadRecv.Start();
             ThreadSnd = new Thread(SendMsg);
             ThreadSnd.Start();
+
+           
+            writer = new StreamWriter(stream);
+            reader = new StreamReader(stream);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.LogWarning(e);
         }
-        
 
-        playerState = ClientState.CS_Initialize;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //If you press mouse right click send message to server with your UUID
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.L))
             SendMsg();
+
     }
 
     void ReceiveMsg()
     {
-        data = new byte[1024];
+       
         while (true)
         {
-            recv = listener.ReceiveFrom(data, ref remote); //Receive data from server           
+            data = client.Receive(ref ipep); //Receive data from server
+                                             //
             Thread.Sleep(500);  //wait for 500ms
         }
 
@@ -81,23 +78,21 @@ public class NetworkingClient : Networking
 
     public void SendMsg()
     {
-        byte[] data_send = Encoding.UTF8.GetBytes("Client " + id.ToString() + "sending message to server"); //Sends Ping to the server
-        listener.SendTo(data_send, data_send.Length, SocketFlags.None, ipep); //Send data to server
+        byte[] data_send = Encoding.ASCII.GetBytes("Client " + id.ToString() + "sending message to server"); //Sends Ping to the server
+
+        client.Send(data_send, data_send.Length); //Send data to server
+        text = Encoding.ASCII.GetString(data_send);
+        Debug.Log(text);
     }
 
-    public ClientState PlayerState() { return playerState; }
 
-#region InputSend
-    /*
-    void SendInput()
+    void SendPackets()
     {
-        float movement;
-        movement = Input.GetAxisRaw("Vertical");
-        Vector2 paddlePosition = transform.position;
-        paddlePosition.y = Mathf.Clamp(paddlePosition.y + movement * speed * Time.deltaTime, -yBound, yBound);
-        transform.position = paddlePosition;
+       
     }
-    */
-#endregion InputSend
 
+    void ProcessPacket(ref MemoryStream stream, ref UdpClient client)
+    {
+     
+    }
 }
