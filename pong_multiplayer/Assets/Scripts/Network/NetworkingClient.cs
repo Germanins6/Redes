@@ -17,8 +17,6 @@ public class NetworkingClient : Networking
     int recv;
     string text;
 
- 
-
     class Client
     {
         //Each client get assigned a UUID
@@ -50,7 +48,7 @@ public class NetworkingClient : Networking
         try
         {
             listener = new UdpClient("127.0.0.1", listenPort);
-            ipep = new IPEndPoint(IPAddress.Any, listenPort);
+            ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), listenPort);
             listener.Connect(ipep);
 
             ThreadSend = new Thread(SendMsg);
@@ -73,12 +71,12 @@ public class NetworkingClient : Networking
     {
         //PSEUDO
         /*
-         Each x ms send player state to client 
+         Each x ms send player state to server 
         */
     }
 
     void ReceiveMsg()
-    {  
+    {
         while (true)
         {
             packageDataRcv = listener.Receive(ref ipep);
@@ -96,11 +94,11 @@ public class NetworkingClient : Networking
 
     void SendPackets()
     {
-       
+
     }
 
     void ProcessPacket(ref MemoryStream stream, ref UdpClient client)
     {
-     
+
     }
 }

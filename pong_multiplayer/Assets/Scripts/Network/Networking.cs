@@ -10,7 +10,7 @@ using System.Threading;
 public class Networking : MonoBehaviour
 {
 
-    enum ClientState
+    protected enum ClientState
     {
         CS_Error = -1,
         CS_Connected,
@@ -20,7 +20,7 @@ public class Networking : MonoBehaviour
     }
 
     //Flag to identify dgram type and process stream
-    enum PacketType
+    protected enum PacketType
     {
         PT_Welcome,
         PT_Acknowledge,

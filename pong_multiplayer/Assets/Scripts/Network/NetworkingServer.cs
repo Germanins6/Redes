@@ -13,6 +13,8 @@ using UnityEngine.UI;
 public class NetworkingServer : Networking
 {
 
+
+    //Dictionary<EndPoint, Client>;
     private GameManager gameManager;
 
     // Start is called before the first frame update
@@ -24,11 +26,7 @@ public class NetworkingServer : Networking
             listener = new UdpClient(listenPort);
             ipep = new IPEndPoint(IPAddress.Any, listenPort);
 
-         
-            //StartListening();
-
-            ThreadReceive = new Thread(StartListening);
-            ThreadReceive.Start();
+            listener.BeginReceive(new AsyncCallback(AcceptClients), listener);
 
             Debug.Log("Server initialized in" + ip.ToString() + " : " + listenPort.ToString());
         }
@@ -36,37 +34,38 @@ public class NetworkingServer : Networking
         {
             Debug.LogWarning(e.ToString());
         }
-
     }
 
 
     //Receive client connection and store into player list
     private void AcceptClients(IAsyncResult ias)
     {
-        Debug.Log("Starting async listenning");
-        UdpClient listener = ias.AsyncState as UdpClient;
-        IPEndPoint ipe = ias.AsyncState as IPEndPoint;
+        UdpClient server = ias.AsyncState as UdpClient;
 
-        byte[] packageReceive = listener.EndReceive(ias, ref ipe);
-        Debug.Log(Encoding.ASCII.GetString(packageReceive));
+        try
+        {
+            Debug.Log("Starting async listenning");
+            EndPoint ipe = ias.AsyncState as IPEndPoint;
 
-        Debug.Log(ipe.Address.ToString() + ipe.Port.ToString());
+            //byte[] packageReceive = listener.EndReceive(ias, ref ipe);
+            //Debug.Log(Encoding.ASCII.GetString(packageReceive));
+
+            ThreadReceive = new Thread(ReceiveMsg);
+            ThreadReceive.Start(ipe);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Exception: " + e.Message);
+        }
 
 
-        //StartListening();
-    }
 
-    //TODO 2: Make udp port receive permanent entry connections(just 2 players)
-    private void StartListening()
-    {
-        Debug.Log("HOLA");
         listener.BeginReceive(new AsyncCallback(AcceptClients), listener);
     }
 
-    //TODO 3: Send serialized data to each player in game session
     private void Broadcast()
     {
-       //TODO Dictionary
+        //TODO Dictionary
     }
 
     // Update is called once per frame
@@ -74,11 +73,14 @@ public class NetworkingServer : Networking
     {
     }
 
-    void ReceiveMsg()
-    {  
+    void ReceiveMsg(object ipep_Client_)
+    {
+        IPEndPoint ipep_Client = ipep_Client_ as IPEndPoint;
+
         while (true)
         {
-            packageDataRcv = listener.Receive(ref ipep);
+            packageDataRcv = listener.Receive(ref ipep_Client);
+            Debug.Log(Encoding.ASCII.GetString(packageDataRcv));
             Thread.Sleep(50);
         }
     }
@@ -88,5 +90,5 @@ public class NetworkingServer : Networking
         return Guid.NewGuid();
     }
 
-    
+
 }
