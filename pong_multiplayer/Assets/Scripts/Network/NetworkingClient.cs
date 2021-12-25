@@ -8,46 +8,58 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
-using UnityEngine.UI;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
+
 
 public class NetworkingClient : Networking
 {
-    private UdpClient client;
-    public IPEndPoint ipep;
-    EndPoint remote;
-    private const int listenPort = 6000;
-    Thread ThreadRecv;
-    Thread ThreadSnd;
+
     int recv;
-    byte[] data = new byte[1024];
     string text;
 
-    private NetworkStream stream;
-    private StreamWriter writer;
-    private StreamReader reader;
+ 
 
-    //Each client get assigned a UUID
-    Guid id = Guid.NewGuid();
+    class Client
+    {
+        //Each client get assigned a UUID
+        [XmlIgnore]
+        Guid id = Guid.NewGuid();
+
+        [XmlIgnore]
+        public float Paddle_Movement;
+
+        [XmlElement("Paddle_Movement")]
+        public string PaddleMovement;
+
+    }
+    class WorldReplication
+    {
+        //Data
+        public float Paddle1Pos, Paddle2Pos;
+        public Vector2 BallPos;
+
+        public int Client1_Score, Client2_Score;
+
+        public bool Client1_isConnected, Client2_isConnected;
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         try
         {
-            client = new UdpClient("127.0.0.1", 6000);
+            listener = new UdpClient("127.0.0.1", listenPort);
             ipep = new IPEndPoint(IPAddress.Any, listenPort);
-            client.Connect(ipep);
+            listener.Connect(ipep);
 
-            ThreadRecv = new Thread(ReceiveMsg);
-            ThreadRecv.Start();
-            ThreadSnd = new Thread(SendMsg);
-            ThreadSnd.Start();
+            ThreadSend = new Thread(SendMsg);
+            ThreadSend.Start();
 
-           
-            writer = new StreamWriter(stream);
-            reader = new StreamReader(stream);
+            ThreadReceive = new Thread(ReceiveMsg);
+            ThreadReceive.Start();
+
+            SendMsg();
         }
         catch (Exception e)
         {
@@ -59,30 +71,26 @@ public class NetworkingClient : Networking
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-            SendMsg();
-
+        //PSEUDO
+        /*
+         Each x ms send player state to client 
+        */
     }
 
     void ReceiveMsg()
-    {
-       
+    {  
         while (true)
         {
-            data = client.Receive(ref ipep); //Receive data from server
-                                             //
-            Thread.Sleep(500);  //wait for 500ms
+            packageDataRcv = listener.Receive(ref ipep);
+            Thread.Sleep(50);
         }
-
     }
 
     public void SendMsg()
     {
-        byte[] data_send = Encoding.ASCII.GetBytes("Client " + id.ToString() + "sending message to server"); //Sends Ping to the server
-
-        client.Send(data_send, data_send.Length); //Send data to server
-        text = Encoding.ASCII.GetString(data_send);
-        Debug.Log(text);
+        byte[] packageDataSnd = Encoding.ASCII.GetBytes("Client sending message to server");
+        listener.Send(packageDataSnd, packageDataSnd.Length);
+        Thread.Sleep(50);
     }
 
 
