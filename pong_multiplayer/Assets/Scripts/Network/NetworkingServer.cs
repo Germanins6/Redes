@@ -8,13 +8,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
-using UnityEngine.UI;
+using System.Xml.Serialization;
 
 public class NetworkingServer : Networking
 {
 
-
-    //Dictionary<EndPoint, Client>;
+    private Dictionary<EndPoint, Client> clients;
     private GameManager gameManager;
 
     // Start is called before the first frame update
@@ -47,9 +46,12 @@ public class NetworkingServer : Networking
             Debug.Log("Starting async listenning");
             EndPoint ipe = ias.AsyncState as IPEndPoint;
 
-            //byte[] packageReceive = listener.EndReceive(ias, ref ipe);
-            //Debug.Log(Encoding.ASCII.GetString(packageReceive));
+            //Store data in player and generate id to welcome
+            Client newPlayer = new Client(ipe, GenerateUUID());
+            clients.Add(ipe, newPlayer);
 
+            Debug.Log("Current clients:  " + clients.Count);
+            
             ThreadReceive = new Thread(ReceiveMsg);
             ThreadReceive.Start(ipe);
         }
@@ -63,14 +65,20 @@ public class NetworkingServer : Networking
         listener.BeginReceive(new AsyncCallback(AcceptClients), listener);
     }
 
-    private void Broadcast()
+    private void BroadcastWorldState()
     {
-        //TODO Dictionary
+        //Foreach pair of player stored in our clientList send worldState
+        foreach(KeyValuePair<EndPoint, Client> player in clients)
+        {
+            //Call Replication World function each 100ms(?).
+            //WordReplication(player.Value.ep, ¿WorldStateData[]?);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Call Broadcast();
     }
 
     void ReceiveMsg(object ipep_Client_)
@@ -85,10 +93,41 @@ public class NetworkingServer : Networking
         }
     }
 
-    Guid GenerateID()
+    string GenerateUUID()
     {
-        return Guid.NewGuid();
+        return Guid.NewGuid().ToString();
     }
 
+
+}
+
+public class Client
+{
+
+    public Client(EndPoint e, string uuid)
+    {
+        ep = e;
+        id = uuid;
+    }
+
+    [XmlIgnore]
+    public EndPoint ep;
+
+    [XmlIgnore]
+    string id;
+
+    [XmlElement("Paddle_Movement")]
+    public string PaddleMovement;
+
+}
+public class WorldReplication
+{
+    //Data
+    public float Paddle1Pos, Paddle2Pos;
+    public Vector2 BallPos;
+
+    public int Client1_Score, Client2_Score;
+
+    public bool Client1_isConnected, Client2_isConnected;
 
 }

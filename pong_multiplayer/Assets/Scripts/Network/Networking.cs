@@ -22,6 +22,7 @@ public class Networking : MonoBehaviour
     //Flag to identify dgram type and process stream
     protected enum PacketType
     {
+        PT_Hello,
         PT_Welcome,
         PT_Acknowledge,
         PT_InputData,

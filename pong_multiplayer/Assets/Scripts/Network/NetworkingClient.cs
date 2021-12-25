@@ -14,34 +14,6 @@ using System.Xml.Serialization;
 public class NetworkingClient : Networking
 {
 
-    int recv;
-    string text;
-
-    class Client
-    {
-        //Each client get assigned a UUID
-        [XmlIgnore]
-        Guid id = Guid.NewGuid();
-
-        [XmlIgnore]
-        public float Paddle_Movement;
-
-        [XmlElement("Paddle_Movement")]
-        public string PaddleMovement;
-
-    }
-    class WorldReplication
-    {
-        //Data
-        public float Paddle1Pos, Paddle2Pos;
-        public Vector2 BallPos;
-
-        public int Client1_Score, Client2_Score;
-
-        public bool Client1_isConnected, Client2_isConnected;
-
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -52,12 +24,10 @@ public class NetworkingClient : Networking
             listener.Connect(ipep);
 
             ThreadSend = new Thread(SendMsg);
-            ThreadSend.Start();
+            ThreadSend.Start(PacketType.PT_Hello);
 
             ThreadReceive = new Thread(ReceiveMsg);
             ThreadReceive.Start();
-
-            SendMsg();
         }
         catch (Exception e)
         {
@@ -84,9 +54,33 @@ public class NetworkingClient : Networking
         }
     }
 
-    public void SendMsg()
+    public void SendMsg(object type)
     {
-        byte[] packageDataSnd = Encoding.ASCII.GetBytes("Client sending message to server");
+         
+        var packet = type as PacketType?;
+
+
+        switch (type)
+        {
+            case PacketType.PT_Hello:
+                packageDataSnd = Encoding.ASCII.GetBytes("Hello");
+                break;
+            case PacketType.PT_Welcome:
+                break;
+            case PacketType.PT_Acknowledge:
+                break;
+            case PacketType.PT_InputData:
+                break;
+            case PacketType.PT_ReplicationData:
+                break;
+            case PacketType.PT_Disconnect:
+                break;
+            case PacketType.PT_Max:
+                break;
+            default:
+                break;
+        }
+
         listener.Send(packageDataSnd, packageDataSnd.Length);
         Thread.Sleep(50);
     }
