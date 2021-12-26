@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Console
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_MinSize: {x: 303, y: 342}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 26
+  controlID: 97
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_MinSize: {x: 303, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 27
+  controlID: 71
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -276,8 +276,8 @@ MonoBehaviour:
     y: 0
     width: 1026
     height: 671
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 19}
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
-  m_Stats: 0
+  m_Stats: 1
   m_SelectedSizes: 03000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
@@ -784,14 +784,14 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Scripts/Network
   m_LastFoldersGridSize: 96
-  m_LastProjectPath: C:\Users\germa\Documents\GitHub\Redes\pong_multiplayer
+  m_LastProjectPath: C:\Users\Usuario\Documents\GitHub\Redes\pong_multiplayer
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 1e430000
-    m_LastClickedID: 17182
-    m_ExpandedIDs: 000000000a4300000c43000000ca9a3b
+    m_SelectedIDs: 1a430000
+    m_LastClickedID: 17178
+    m_ExpandedIDs: 000000000a4300001243000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -819,7 +819,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: c454fdff
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000a4300000c430000
+    m_ExpandedIDs: 000000000a430000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -844,9 +844,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 6c070000
-    m_LastClickedInstanceID: 1900
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 54650000
+    m_LastClickedInstanceID: 25940
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000c823ffff3e16feff424000009cae000018960000c054000000ed000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -940,23 +940,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 845e0000
-      m_LastClickedID: 24196
-      m_ExpandedIDs: 0cefffff24efffff2aefffff5eefffff76efffff7cefffffb4efffffccefffff8ef0ffff34f4ffff4cf4ffff0ef5ffff88f7ffffa2f7ffff64f8ffff30fbffff74580000
+      m_SelectedIDs: 30680000
+      m_LastClickedID: 26672
+      m_ExpandedIDs: 14e3ffff2ce3ffffeee3ffffaae5ffffc2e5ffff84e6ffff58e7ffff70e7ffff32e8ffff7ce9ffff94e9ffff56eaffff80edffff98edffff5aeeffffc0f0ffffd8f0ffff9af1fffff6f5ffff0ef6ffffd0f6ffff68f8ffff82f8ffff44f9ffffeefaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: EventSystem
-        m_OriginalName: EventSystem
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 22626
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 

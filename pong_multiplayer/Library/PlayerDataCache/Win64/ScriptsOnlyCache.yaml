@@ -71,31 +71,31 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1842}
+      Script: {instanceID: 1844}
     - Class: 114
-      Script: {instanceID: 1900}
+      Script: {instanceID: 1902}
     - Class: 114
-      Script: {instanceID: 2224}
+      Script: {instanceID: 2226}
     - Class: 114
-      Script: {instanceID: 2232}
+      Script: {instanceID: 2234}
     - Class: 114
-      Script: {instanceID: 2648}
+      Script: {instanceID: 2650}
     - Class: 114
-      Script: {instanceID: 2808}
+      Script: {instanceID: 2810}
     - Class: 114
-      Script: {instanceID: 2856}
+      Script: {instanceID: 2858}
     - Class: 114
-      Script: {instanceID: 2986}
+      Script: {instanceID: 2988}
     - Class: 114
-      Script: {instanceID: 3028}
+      Script: {instanceID: 3030}
     - Class: 114
-      Script: {instanceID: 3272}
+      Script: {instanceID: 3274}
     - Class: 114
-      Script: {instanceID: 3926}
+      Script: {instanceID: 3928}
     - Class: 114
-      Script: {instanceID: 4718}
+      Script: {instanceID: 4720}
     - Class: 114
-      Script: {instanceID: 5094}
+      Script: {instanceID: 5096}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -201,7 +201,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: d328885769b72ea7c39dc5586af6492d
+      Hash: 257d401eb851ec1fdb239e2f7e35d91a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkingClient
@@ -297,7 +297,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 189ad852e870082042fe89bd7ec51730
+      Hash: ec323d352eb715ffa98f884ad434d541
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkingServer
@@ -664,4 +664,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/pongo.unity
-  playerPath: C:/Users/germa/Documents/GitHub/Redes/pong_multiplayer/clientbuilds/pong_multiplayer.exe
+  playerPath: C:/Users/Usuario/Documents/GitHub/Redes/pong_multiplayer/clientbuilds/pong_multiplayer.exe

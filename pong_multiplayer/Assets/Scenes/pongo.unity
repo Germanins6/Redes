@@ -162,14 +162,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27735442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82c4dd4c597e64848bbc73accb864815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   text: {fileID: 1805191987}
   msgToshow: 
+  period: 0.33
   ball: {fileID: 1711632003}
   initialVelocity: 1
   velocityMultiplier: 1.2
@@ -183,16 +183,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27735442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b412ec1f8a409546a484a8d7e2e9627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   paddle1_transform: {fileID: 1403897746}
   paddle2_transform: {fileID: 1529102946}
   ball: {fileID: 1711632003}
   movement: 0
+  period: 0.33
   text: {fileID: 1805191987}
   msgToshow: 
   paddle1ScoreText: {fileID: 1116788309}

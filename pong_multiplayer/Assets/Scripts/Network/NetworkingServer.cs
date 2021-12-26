@@ -15,9 +15,8 @@ using Random = UnityEngine.Random;
 public class NetworkingServer : Networking
 {
 
-    private WorldReplication world_Replication;
+    public WorldReplication world_Replication;
     public Dictionary<string, Client> clients;
-    public GameManager gameManager;
 
     int recv;
     bool paddle;
@@ -29,7 +28,11 @@ public class NetworkingServer : Networking
     private float speed;
     float lastMs;
 
-    //Ball info??¿?¿?¿?¿?¿?
+
+    private float nextActionTime = 0.0f;
+    public float period = 0.55f;
+
+    //Ball
     public GameObject ball;
 
 
@@ -107,8 +110,12 @@ public class NetworkingServer : Networking
         MovePaddles(tmp_Client);
 
         world_Replication.PackageType = 4.ToString();
+        world_Replication.Client1_Score = paddle1Score.ToString();
+        world_Replication.Client2_Score = paddle2Score.ToString();
+        world_Replication.BallPosX = ball.transform.position.x.ToString();
+        world_Replication.BallPosY = ball.transform.position.y.ToString();
 
-        packageDataSnd = new byte[1024];
+        packageDataSnd = new byte[2048];
         SerializeData(world_Replication);
 
 
@@ -126,7 +133,13 @@ public class NetworkingServer : Networking
     {
         lastMs = Time.deltaTime;
         text.text = msgToshow;
-        CheckScore();
+        
+
+        if (Time.time > nextActionTime)
+        {
+            CheckScore();
+
+        }
     }
 
     void ReceiveMsg()
@@ -244,13 +257,13 @@ public class NetworkingServer : Networking
     public void Paddle1Scored()
     {
         paddle1Score++;
-        world_Replication.Client1_Score = paddle1Score.ToString();
+        
     }
 
     public void Paddle2Scored()
     {
         paddle2Score++;
-        world_Replication.Client2_Score = paddle2Score.ToString();
+  
     }
 
     public void CheckScore() 

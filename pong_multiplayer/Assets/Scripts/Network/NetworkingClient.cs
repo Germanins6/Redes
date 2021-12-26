@@ -18,12 +18,14 @@ public class NetworkingClient : Networking
     private Client client;
     private WorldReplication world_Replication;
 
-    public GameManager gameManager;
     public Transform paddle1_transform, paddle2_transform;
     public GameObject ball;
 
     string id = Guid.NewGuid().ToString();
     public float movement;
+
+    private float nextActionTime = 0.0f;
+    public float period = 0.1f;
 
     public Text text;
     public string msgToshow;
@@ -77,7 +79,11 @@ public class NetworkingClient : Networking
             enableMovement = !enableMovement;
         }
 
-
+        if (Time.time > nextActionTime)
+        {
+            nextActionTime += period;
+            SendMsg(PacketType.PT_InputData);
+        }
 
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
             SendMsg(PacketType.PT_InputData);
@@ -120,7 +126,10 @@ public class NetworkingClient : Networking
 
             try
             {
-                world_Replication = DeserializeWorldReplication();
+                WorldReplication temp_replication = new WorldReplication();
+                temp_replication = DeserializeWorldReplication();
+
+                world_Replication = temp_replication;
 
                 switch ((PacketType)int.Parse(world_Replication.PackageType))
                 {
@@ -199,6 +208,7 @@ public class NetworkingClient : Networking
         stream.Seek(0, SeekOrigin.Begin);
 
         tmpWrld = (WorldReplication)serializer.Deserialize(stream);
+
         return tmpWrld;
     }
 

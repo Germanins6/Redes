@@ -95,9 +95,6 @@ public class Networking : MonoBehaviour
             Client1_Score = 0.ToString();
             Client2_Score = 0.ToString();
 
-            Client1_isConnected = 0.ToString();
-            Client2_isConnected = 0.ToString();
-
             PackageType = 0.ToString();
         }
 
@@ -117,11 +114,6 @@ public class Networking : MonoBehaviour
         public string Client1_Score;
         [XmlElement("Client2_Score")]
         public string Client2_Score;
-
-        [XmlElement("Client1_isConnected")]
-        public string Client1_isConnected;
-        [XmlElement("Client2_isConnected")]
-        public string Client2_isConnected;
 
         [XmlElement("PackageType")]
         public string PackageType;
