@@ -42,7 +42,7 @@ public class NetworkingServer : Networking
         //Initialize Elements
         InitializePaddles();
         InitializeBall();
-        InitializeWorld();
+        world_Replication = new WorldReplication();
 
         paddle = false;
 
@@ -70,46 +70,6 @@ public class NetworkingServer : Networking
         }
     }
 
-
-    //Receive client connection and store into player list
-    /*private void AcceptClients(IAsyncResult ias)
-    {
-
-        Socket server = ias.AsyncState as Socket;
-
-        try
-        {
-            Socket client = server.EndAccept(ias);
-
-            //UdpClient client = ias.AsyncState as UdpClient;
-            IPEndPoint client_endpoint = client.RemoteEndPoint as IPEndPoint;
-
-            Debug.Log("BBBBBBBBBBBBBBBBB");
-
-            if(client_endpoint == null)
-            {
-                Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
-            }
-            //Server receives hello packet from client to join and retrieves id and store info
-            //Debug.Log(client.Client.RemoteEndPoint.AddressFamily.ToString());
-
-            string id = GenerateUUID();
-
-            Client newPlayer = new Client(client, id);
-
-            clients.Add(id, newPlayer);
-
-
-            ThreadReceive = new Thread(ReceiveMsg);
-            ThreadReceive.Start(client_endpoint);
-        }
-        catch (System.Exception e)
-        {
-            Debug.Log("Exception: " + e.Message);
-        }
-
-        listener.BeginAccept(new AsyncCallback(AcceptClients), listener);
-    }*/
    
     private void BroadcastWorldState()
     {
@@ -124,23 +84,8 @@ public class NetworkingServer : Networking
     // Update is called once per frame
     void Update()
     {
-
-        //Call Broadcast();
-
-        //int i = 1;
-        //foreach (KeyValuePair<IPEndPoint, Client> player in clients)
-        //{
-        //    MovePaddles(player.Value, i);
-        //    i++;
-        //}
-
-
-        //ReceiveMsg();
-
         text.text = msgToshow;
-    
     }
-
 
     void ReceiveMsg()
     {
@@ -194,18 +139,15 @@ public class NetworkingServer : Networking
                         break;
                     case PacketType.PT_InputData:
 
-                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 1");
                        
                         MovePaddles(tmp_Client);
                         Debug.LogError(world_Replication.Paddle1Pos + "   "  + world_Replication.Paddle2Pos);
-                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 2");
 
                         world_Replication.PackageType = 4.ToString();
 
                         packageDataSnd = new byte[1024];
                         SerializeData(world_Replication);
 
-                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 3");
                         
                         foreach (KeyValuePair<string, Client> player in clients)
                         {
@@ -216,7 +158,6 @@ public class NetworkingServer : Networking
 
                         SendMsg(tmp_Client);
 
-                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 4");
 
                         //msgToshow = tmp_Client.PaddleMovement;
                         //Debug.Log(tmp_Client.PaddleMovement);
@@ -334,36 +275,18 @@ public class NetworkingServer : Networking
 
     #region InitializeAll 
 
-    //Initialize World
-    void InitializeWorld()
-    {
-
-        world_Replication = new WorldReplication();
-
-        world_Replication.Paddle2Pos = 0.ToString();
-        world_Replication.Paddle1Pos = 0.ToString();
-        world_Replication.BallVelX = Vel.x.ToString();
-        world_Replication.BallVelY = Vel.y.ToString();
-        world_Replication.PackageType = 7.ToString();
-
-    }
-
     //Initialize Ball
     void InitializeBall()
     {
-
         initialVelocity = 4.0f;
         velocityMultiplier = 1.1f;
-
     }
 
     //Initialize Paddles
     void InitializePaddles()
     {
-
         yBound = 3.75f;
         speed = 7.0f;
-
     }
 
     #endregion

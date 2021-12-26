@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Xml.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 public class Networking : MonoBehaviour
 {
@@ -90,6 +84,23 @@ public class Networking : MonoBehaviour
     }
     public class WorldReplication
     {
+        public WorldReplication()
+        {
+            Paddle1Pos = 0.ToString();
+            Paddle2Pos = 0.ToString();
+
+            BallVelX = 0.ToString();
+            BallVelY = 0.ToString();
+
+            Client1_Score = 0.ToString();
+            Client2_Score = 0.ToString();
+
+            Client1_isConnected = 0.ToString();
+            Client2_isConnected = 0.ToString();
+
+            PackageType = 0.ToString();
+        }
+
         //Data
         [XmlElement("Paddle1Pos")]
         public string Paddle1Pos;

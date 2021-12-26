@@ -27,9 +27,12 @@ public class NetworkingClient : Networking
     public Text text;
     public string msgToshow;
 
+    bool enableMovement;
+
     void Start()
     {
         world_Replication = new WorldReplication();
+        enableMovement = false;
 
         try
         {
@@ -43,9 +46,6 @@ public class NetworkingClient : Networking
             listener.Connect(ipep);
 
             client = new Client();
-
-            //ThreadSend = new Thread(SendMsg);
-            //ThreadSend.Start();
 
             ThreadReceive = new Thread(ReceiveMsg);
             ThreadReceive.Start();
@@ -64,6 +64,15 @@ public class NetworkingClient : Networking
     {
         text.text = msgToshow;
 
+        if (enableMovement)
+        {
+            paddle1_transform.position = new Vector3(7.5f, float.Parse(world_Replication.Paddle1Pos), 0.0f);
+            paddle2_transform.position = new Vector3(-7.5f, float.Parse(world_Replication.Paddle2Pos), 0.0f);
+            enableMovement = !enableMovement;
+        }
+
+
+
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             SendMsg(PacketType.PT_InputData);
     }
@@ -78,9 +87,6 @@ public class NetworkingClient : Networking
 
             try
             {
-                if (packageDataRcv != null)
-                    Debug.LogError("PackageFull");
-
                 Client tmp_Client = new Client();
                 tmp_Client = DeserializeClient();
 
@@ -92,16 +98,12 @@ public class NetworkingClient : Networking
                         client.PaddleInUse = tmp_Client.PaddleInUse;
                         msgToshow = client.id;
                         break;
+
                     case PacketType.PT_Acknowledge:
                         break;                    
-                    case PacketType.PT_ReplicationData:
-                        packageDataSnd = Encoding.ASCII.GetBytes("Client " + id + " pressing key");
-                        break;
+
                     case PacketType.PT_Disconnect:
                         break;                    
-                    default:
-                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 6");
-                        break;
                 }
             }
             catch (Exception e)
@@ -112,30 +114,21 @@ public class NetworkingClient : Networking
 
             try
             {
-                if (packageDataRcv != null)
-                    Debug.LogError("PackageFull");
-
-                DeserializeData();
+                world_Replication = DeserializeWorldReplication();
 
                 switch ((PacketType)int.Parse(world_Replication.PackageType))
                 {
                     case PacketType.PT_Welcome:      
-                        
                         break;
+
                     case PacketType.PT_Acknowledge:
                         break;
+
                     case PacketType.PT_ReplicationData:
                         
                         gameManager.paddle1Score = int.Parse(world_Replication.Client1_Score);
                         gameManager.paddle2Score = int.Parse(world_Replication.Client2_Score);
-
-                        paddle1_transform.position = new Vector3(paddle1_transform.position.x, float.Parse(world_Replication.Paddle1Pos), paddle1_transform.position.z);
-                        paddle2_transform.position = new Vector3(paddle2_transform.position.x, float.Parse(world_Replication.Paddle2Pos), paddle2_transform.position.z);
-
-
-                        break;
-                    default:
-                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 6");
+                        enableMovement = !enableMovement;
                         break;
                 }
             }
@@ -193,14 +186,18 @@ public class NetworkingClient : Networking
     }
 
     //Deserialize data from XML file
-    public void DeserializeData()
+    public WorldReplication DeserializeWorldReplication()
     {
+        WorldReplication tmpWrld = new WorldReplication();
+
         XmlSerializer serializer = new XmlSerializer(typeof(WorldReplication));
         MemoryStream stream = new MemoryStream();
+
         stream.Write(packageDataRcv, 0, packageDataRcv.Length);
         stream.Seek(0, SeekOrigin.Begin);
 
-        world_Replication = (WorldReplication)serializer.Deserialize(stream);
+        tmpWrld = (WorldReplication)serializer.Deserialize(stream);
+        return tmpWrld;
     }
 
     public Client DeserializeClient()

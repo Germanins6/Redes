@@ -73,35 +73,35 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1836}
+      Script: {instanceID: 1844}
     - Class: 114
-      Script: {instanceID: 1894}
-    - Class: 114
-      Script: {instanceID: 2218}
+      Script: {instanceID: 1902}
     - Class: 114
       Script: {instanceID: 2226}
     - Class: 114
-      Script: {instanceID: 2550}
+      Script: {instanceID: 2234}
     - Class: 114
-      Script: {instanceID: 2642}
+      Script: {instanceID: 2558}
     - Class: 114
-      Script: {instanceID: 2802}
+      Script: {instanceID: 2650}
     - Class: 114
-      Script: {instanceID: 2850}
+      Script: {instanceID: 2810}
     - Class: 114
-      Script: {instanceID: 2980}
+      Script: {instanceID: 2858}
     - Class: 114
-      Script: {instanceID: 3022}
+      Script: {instanceID: 2988}
     - Class: 114
-      Script: {instanceID: 3266}
+      Script: {instanceID: 3030}
     - Class: 114
-      Script: {instanceID: 3920}
+      Script: {instanceID: 3274}
     - Class: 114
-      Script: {instanceID: 4466}
+      Script: {instanceID: 3928}
     - Class: 114
-      Script: {instanceID: 4712}
+      Script: {instanceID: 4474}
     - Class: 114
-      Script: {instanceID: 5088}
+      Script: {instanceID: 4720}
+    - Class: 114
+      Script: {instanceID: 5096}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -670,4 +670,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/pongo.unity
-  playerPath: C:/Users/Usuario/Desktop/Pong/pong_multiplayer.exe
+  playerPath: C:/Users/germa/Documents/GitHub/Redes/pong_multiplayer/clientbuilds/pong_multiplayer.exe
