@@ -13,21 +13,33 @@ using System.Xml.Serialization;
 
 public class NetworkingClient : Networking
 {
+    private Client client;
+    private WorldReplication world_Replication;
 
-    // Start is called before the first frame update
+    public Transform paddle1_transform, paddle2_transform;
+    public GameObject ball;
+
+    string id = Guid.NewGuid().ToString();
+
     void Start()
     {
+        world_Replication = new WorldReplication();
+
         try
         {
             listener = new UdpClient("127.0.0.1", listenPort);
             ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), listenPort);
             listener.Connect(ipep);
 
+            //client = new Client();
+
             ThreadSend = new Thread(SendMsg);
             ThreadSend.Start(PacketType.PT_Hello);
 
             ThreadReceive = new Thread(ReceiveMsg);
             ThreadReceive.Start();
+
+            SendMsg(PacketType.PT_Hello);
         }
         catch (Exception e)
         {
@@ -39,10 +51,8 @@ public class NetworkingClient : Networking
     // Update is called once per frame
     void Update()
     {
-        //PSEUDO
-        /*
-         Each x ms send player state to server 
-        */
+        if (Input.anyKeyDown)
+            SendMsg(PacketType.PT_ReplicationData);
     }
 
     void ReceiveMsg()
@@ -70,8 +80,10 @@ public class NetworkingClient : Networking
             case PacketType.PT_Acknowledge:
                 break;
             case PacketType.PT_InputData:
+                packageDataSnd = SerializeData(client);
                 break;
             case PacketType.PT_ReplicationData:
+                packageDataSnd = Encoding.ASCII.GetBytes("Client " + id + " pressing key");
                 break;
             case PacketType.PT_Disconnect:
                 break;
@@ -80,6 +92,7 @@ public class NetworkingClient : Networking
             default:
                 break;
         }
+
 
         listener.Send(packageDataSnd, packageDataSnd.Length);
         Thread.Sleep(50);
@@ -94,5 +107,27 @@ public class NetworkingClient : Networking
     void ProcessPacket(ref MemoryStream stream, ref UdpClient client)
     {
 
+    }
+
+    //Serialize data and save it to XML file
+    public byte[] SerializeData(Client c)
+    {
+        //Serialize Data
+        XmlSerializer serializer = new XmlSerializer(typeof(Client));
+        MemoryStream stream = new MemoryStream();
+        serializer.Serialize(stream, c);
+
+         return stream.ToArray();
+    }
+
+    //Deserialize data from XML file
+    public void DeserializeData()
+    {
+        XmlSerializer serializer = new XmlSerializer(typeof(WorldReplication));
+        MemoryStream stream = new MemoryStream();
+        stream.Write(packageDataRcv, 0, packageDataRcv.Length);
+        stream.Seek(0, SeekOrigin.Begin);
+
+        world_Replication = (WorldReplication)serializer.Deserialize(stream);
     }
 }

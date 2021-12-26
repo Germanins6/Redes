@@ -133,6 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 27735444}
   - component: {fileID: 27735443}
+  - component: {fileID: 27735445}
+  - component: {fileID: 27735446}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -171,6 +173,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &27735445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27735442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c4dd4c597e64848bbc73accb864815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddle1_transform: {fileID: 1403897746}
+  paddle2_transform: {fileID: 1529102946}
+  ball: {fileID: 1711632003}
+  initialVelocity: 1
+  velocityMultiplier: 1.2
+  ballRb: {fileID: 1711632004}
+--- !u!114 &27735446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27735442}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b412ec1f8a409546a484a8d7e2e9627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddle1_transform: {fileID: 0}
+  paddle2_transform: {fileID: 0}
+  ball: {fileID: 0}
 --- !u!1 &42209677
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,8 +982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa32dd2a8dd8e074382f04a861ee2890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  isPaddle1: 1
 --- !u!50 &1403897743
 Rigidbody2D:
   serializedVersion: 4
@@ -1093,8 +1126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa32dd2a8dd8e074382f04a861ee2890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  isPaddle1: 0
 --- !u!50 &1529102943
 Rigidbody2D:
   serializedVersion: 4

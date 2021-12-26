@@ -19,23 +19,23 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance
     {
-        get 
+        get
         {
             if (instance == null)
             {
                 instance = FindObjectOfType<GameManager>();
             }
             return instance;
-        
+
         }
-    
+
     }
 
-    public void Paddle1Scored() 
+    public void Paddle1Scored()
     {
         paddle1Score++;
         paddle1ScoreText.text = paddle1Score.ToString();
-    
+
     }
 
     public void Paddle2Scored()
