@@ -29,6 +29,7 @@ public class NetworkingServer : Networking
     private float yBound;
     private float speed;
     float lastMs;
+
     //Ball info??¿?¿?¿?¿?¿?
     public GameObject ball;
 
@@ -108,7 +109,6 @@ public class NetworkingServer : Networking
     {
         //Foreach pair of player stored in our clientList send worldState
         MovePaddles(tmp_Client);
-      
 
         world_Replication.PackageType = 4.ToString();
 
@@ -128,6 +128,8 @@ public class NetworkingServer : Networking
     // Update is called once per frame
     void Update()
     {
+
+        lastMs = Time.deltaTime;
         text.text = msgToshow;
         lastMs = Time.deltaTime;
         CheckScore();
@@ -144,7 +146,6 @@ public class NetworkingServer : Networking
 
             try
             {
-               
                 Client tmp_Client = new Client();
 
                 tmp_Client = DeserializeData();
