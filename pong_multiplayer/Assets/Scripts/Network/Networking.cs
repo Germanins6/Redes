@@ -31,7 +31,8 @@ public class Networking : MonoBehaviour
         PT_InputData,
         PT_ReplicationData,
         PT_Disconnect,
-        PT_Max
+        PT_Max,
+        PT_NULL
     }
 
     //localhost:6000
@@ -83,15 +84,36 @@ public class Networking : MonoBehaviour
         [XmlElement("PackageType")]
         public string PackageType;
 
+        [XmlElement("PaddleInUse")]
+        public string PaddleInUse;
+
     }
     public class WorldReplication
     {
         //Data
-        public float Paddle1Pos, Paddle2Pos;
-        public Vector2 BallVel;
+        [XmlElement("Paddle1Pos")]
+        public string Paddle1Pos;
 
-        public int Client1_Score, Client2_Score;
-        public bool Client1_isConnected, Client2_isConnected;
+        [XmlElement("Paddle2Pos")]
+        public string Paddle2Pos;
+
+        [XmlElement("BallVelX")]
+        public string BallVelX;
+        [XmlElement("BallVelY")]
+        public string BallVelY;
+
+        [XmlElement("Client1_Score")]
+        public string Client1_Score;
+        [XmlElement("Client2_Score")]
+        public string Client2_Score;
+
+        [XmlElement("Client1_isConnected")]
+        public string Client1_isConnected;
+        [XmlElement("Client2_isConnected")]
+        public string Client2_isConnected;
+
+        [XmlElement("PackageType")]
+        public string PackageType;
     }
 
 }

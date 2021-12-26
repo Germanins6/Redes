@@ -17,6 +17,7 @@ public class NetworkingClient : Networking
     private Client client;
     private WorldReplication world_Replication;
 
+    public GameManager gameManager;
     public Transform paddle1_transform, paddle2_transform;
     public GameObject ball;
 
@@ -88,7 +89,7 @@ public class NetworkingClient : Networking
                     case PacketType.PT_Welcome:
                         client.id = tmp_Client.id;
                         client.socket_client = tmp_Client.socket_client;
-
+                        client.PaddleInUse = tmp_Client.PaddleInUse;
                         msgToshow = client.id;
                         break;
                     case PacketType.PT_Acknowledge:
@@ -108,6 +109,43 @@ public class NetworkingClient : Networking
                 Debug.LogWarning(e.Message);
 
             }
+
+            try
+            {
+                if (packageDataRcv != null)
+                    Debug.LogError("PackageFull");
+
+                DeserializeData();
+
+                switch ((PacketType)int.Parse(world_Replication.PackageType))
+                {
+                    case PacketType.PT_Welcome:      
+                        
+                        break;
+                    case PacketType.PT_Acknowledge:
+                        break;
+                    case PacketType.PT_ReplicationData:
+                        
+                        gameManager.paddle1Score = int.Parse(world_Replication.Client1_Score);
+                        gameManager.paddle2Score = int.Parse(world_Replication.Client2_Score);
+
+                        paddle1_transform.position = new Vector3(paddle1_transform.position.x, float.Parse(world_Replication.Paddle1Pos), paddle1_transform.position.z);
+                        paddle2_transform.position = new Vector3(paddle2_transform.position.x, float.Parse(world_Replication.Paddle2Pos), paddle2_transform.position.z);
+
+
+                        break;
+                    default:
+                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 6");
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e.Message);
+
+            }
+
+
             Thread.Sleep(50);
         }
     }

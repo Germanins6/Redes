@@ -159,6 +159,8 @@ MonoBehaviour:
   paddle1transform: {fileID: 1403897746}
   paddle2transform: {fileID: 1529102946}
   balltransform: {fileID: 1711632007}
+  paddle1Score: 0
+  paddle2Score: 0
 --- !u!4 &27735444
 Transform:
   m_ObjectHideFlags: 0
@@ -187,9 +189,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 1805191987}
   msgToshow: 
-  paddle1_transform: {fileID: 1403897746}
-  paddle2_transform: {fileID: 1529102946}
-  ball: {fileID: 1711632003}
   initialVelocity: 1
   velocityMultiplier: 1.2
   ballRb: {fileID: 1711632004}
@@ -205,9 +204,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b412ec1f8a409546a484a8d7e2e9627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddle1_transform: {fileID: 0}
-  paddle2_transform: {fileID: 0}
-  ball: {fileID: 0}
+  gameManager: {fileID: 27735443}
+  paddle1_transform: {fileID: 1403897746}
+  paddle2_transform: {fileID: 1529102946}
+  ball: {fileID: 1711632003}
   movement: 0
   text: {fileID: 1805191987}
   msgToshow: 

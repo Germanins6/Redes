@@ -20,19 +20,16 @@ public class NetworkingServer : Networking
     private GameManager gameManager;
 
     int recv;
+    bool paddle;
 
     public Text text;
     public string msgToshow;
-
-    //Padles info COMO COJO LA INFO DE OTRA ESCENA??¿?¿?¿?¿?¿?
-    public Transform paddle1_transform, paddle2_transform;
-
 
     private float yBound;
     private float speed;
 
     //Ball info??¿?¿?¿?¿?¿?
-    public GameObject ball;
+    //public GameObject ball;
 
     public float initialVelocity;
     public float velocityMultiplier;
@@ -46,6 +43,8 @@ public class NetworkingServer : Networking
         InitializePaddles();
         InitializeBall();
         InitializeWorld();
+
+        paddle = false;
 
         //Initialize UDP server
         try
@@ -169,12 +168,22 @@ public class NetworkingServer : Networking
                         
                         tmp_Client.id = id;                        
                         tmp_Client.socket_client = remote;
-                        
+
+                        if (!paddle)
+                        {
+                            tmp_Client.PaddleInUse = 1.ToString();
+                            paddle = true;
+                        }
+                        else
+                            tmp_Client.PaddleInUse = 2.ToString();
+
                         Debug.LogError(tmp_Client.socket_client);
                        
                         clients.Add(id, tmp_Client);
 
                         tmp_Client.PackageType = 1.ToString();
+
+                        packageDataSnd = new byte[1024];
                         SerializeClient(tmp_Client);
                         msgToshow = tmp_Client.id.ToString();
                         SendMsg(tmp_Client);
@@ -184,8 +193,33 @@ public class NetworkingServer : Networking
                     case PacketType.PT_Acknowledge:
                         break;
                     case PacketType.PT_InputData:
-                        msgToshow = tmp_Client.PaddleMovement;
-                        Debug.Log(tmp_Client.PaddleMovement);
+
+                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 1");
+                       
+                        MovePaddles(tmp_Client);
+                        Debug.LogError(world_Replication.Paddle1Pos + "   "  + world_Replication.Paddle2Pos);
+                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 2");
+
+                        world_Replication.PackageType = 4.ToString();
+
+                        packageDataSnd = new byte[1024];
+                        SerializeData(world_Replication);
+
+                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 3");
+                        
+                        foreach (KeyValuePair<string, Client> player in clients)
+                        {
+                            if (tmp_Client.id == player.Key)
+                                tmp_Client.socket_client = player.Value.socket_client;
+
+                        }
+
+                        SendMsg(tmp_Client);
+
+                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 4");
+
+                        //msgToshow = tmp_Client.PaddleMovement;
+                        //Debug.Log(tmp_Client.PaddleMovement);
                         break;
                     case PacketType.PT_Disconnect:
                         break;
@@ -208,8 +242,14 @@ public class NetworkingServer : Networking
 
     void SendMsg(Client c)
     {
-        listener.SendTo(packageDataSnd, packageDataSnd.Length, SocketFlags.None, c.socket_client);        //Send data to client
+        Debug.LogError("ANTES");
+        if (c.socket_client == null)
+            Debug.LogError("PackageEmpty");
+        if (c.socket_client != null)
+            Debug.LogError("PackageSendFull");
 
+        listener.SendTo(packageDataSnd, packageDataSnd.Length, SocketFlags.None, c.socket_client);        //Send data to client
+        Debug.LogError("DESPUES");
     }
 
     string GenerateUUID()
@@ -255,19 +295,30 @@ public class NetworkingServer : Networking
     }
 
 
-    public void MovePaddles(Client c, int i)
+    public void MovePaddles(Client c)
     {
-        if (i == 1)
+        Debug.LogError("ADIOS MUY BUENAS 0");
+
+        if (int.Parse(c.PaddleInUse) == 1)
         {
-            world_Replication.Paddle1Pos = paddle1_transform.position.y;
-            world_Replication.Paddle1Pos = Mathf.Clamp(world_Replication.Paddle1Pos + int.Parse(c.PaddleMovement) * speed * Time.deltaTime, -yBound, yBound);
-            paddle1_transform.position = new Vector3(paddle1_transform.position.x, world_Replication.Paddle1Pos, paddle1_transform.position.z);
+            Debug.LogError("ADIOS MUY BUENAS 1");
+
+            float paddle_pos = float.Parse(world_Replication.Paddle1Pos);
+
+            Debug.LogError("ADIOS MUY BUENAS 2");
+
+            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle1Pos) + float.Parse(c.PaddleMovement) * speed * (DateTime.Now.Ticks / 10000000), -yBound, yBound);
+
+            Debug.LogError("ADIOS MUY BUENAS 3");
+
+            world_Replication.Paddle1Pos = paddle_pos.ToString();
         }
         else
         {
-            world_Replication.Paddle2Pos = paddle2_transform.position.y;
-            world_Replication.Paddle2Pos = Mathf.Clamp(world_Replication.Paddle2Pos + int.Parse(c.PaddleMovement) * speed * Time.deltaTime, -yBound, yBound);
-            paddle2_transform.position = new Vector3(paddle2_transform.position.x, world_Replication.Paddle2Pos, paddle2_transform.position.z);
+            float paddle_pos = float.Parse(world_Replication.Paddle2Pos);
+            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle2Pos) + float.Parse(c.PaddleMovement) * speed * (DateTime.Now.Ticks/10000000), -yBound, yBound);
+            
+            world_Replication.Paddle2Pos = paddle_pos.ToString();
         }
 
     }
@@ -289,9 +340,11 @@ public class NetworkingServer : Networking
 
         world_Replication = new WorldReplication();
 
-        world_Replication.Paddle1Pos = paddle1_transform.position.y;
-        world_Replication.Paddle2Pos = paddle1_transform.position.y;
-        world_Replication.BallVel = Vel;
+        world_Replication.Paddle2Pos = 0.ToString();
+        world_Replication.Paddle1Pos = 0.ToString();
+        world_Replication.BallVelX = Vel.x.ToString();
+        world_Replication.BallVelY = Vel.y.ToString();
+        world_Replication.PackageType = 7.ToString();
 
     }
 

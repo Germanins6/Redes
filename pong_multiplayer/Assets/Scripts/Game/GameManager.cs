@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform paddle2transform;
     [SerializeField] private Transform balltransform;
 
-    private int paddle1Score;
-    private int paddle2Score;
+    public int paddle1Score;
+    public int paddle2Score;
 
     private static GameManager instance;
 
