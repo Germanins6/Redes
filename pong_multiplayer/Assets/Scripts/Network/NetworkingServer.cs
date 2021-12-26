@@ -11,7 +11,6 @@ using System.Text;
 using System.Xml.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using TMPro;
 
 public class NetworkingServer : Networking
 {
@@ -39,9 +38,6 @@ public class NetworkingServer : Networking
     private Vector2 Vel;
     public Rigidbody2D ballRb;
 
-    //Scores
-    [SerializeField] private TMP_Text paddle1ScoreText;
-    [SerializeField] private TMP_Text paddle2ScoreText;
     public int paddle1Score;
     public int paddle2Score;
     // Start is called before the first frame update
@@ -128,10 +124,8 @@ public class NetworkingServer : Networking
     // Update is called once per frame
     void Update()
     {
-
         lastMs = Time.deltaTime;
         text.text = msgToshow;
-        lastMs = Time.deltaTime;
         CheckScore();
     }
 
@@ -250,15 +244,13 @@ public class NetworkingServer : Networking
     public void Paddle1Scored()
     {
         paddle1Score++;
-        paddle1ScoreText.text = paddle1Score.ToString();
-
+        world_Replication.Client1_Score = paddle1Score.ToString();
     }
 
     public void Paddle2Scored()
     {
         paddle2Score++;
-        paddle2ScoreText.text = paddle2Score.ToString();
-
+        world_Replication.Client2_Score = paddle2Score.ToString();
     }
 
     public void CheckScore() 
@@ -267,7 +259,6 @@ public class NetworkingServer : Networking
         {
             Paddle1Scored();
             Launch();
-            
         }
         else if (ball.transform.position.x > 8.2)
         {

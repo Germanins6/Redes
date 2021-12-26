@@ -88,13 +88,9 @@ public class Networking : MonoBehaviour
         {
             Paddle1Pos = 0.ToString();
             Paddle2Pos = 0.ToString();
-
-            BallVelX = 0.ToString();
-            BallVelY = 0.ToString();
             
             BallPosX = 0.ToString();
             BallPosY = 0.ToString();
-
 
             Client1_Score = 0.ToString();
             Client2_Score = 0.ToString();
@@ -111,11 +107,6 @@ public class Networking : MonoBehaviour
 
         [XmlElement("Paddle2Pos")]
         public string Paddle2Pos;
-
-        [XmlElement("BallVelX")]
-        public string BallVelX;
-        [XmlElement("BallVelY")]
-        public string BallVelY;
 
         [XmlElement("BallPosX")]
         public string BallPosX;

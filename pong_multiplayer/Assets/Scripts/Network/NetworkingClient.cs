@@ -10,6 +10,7 @@ using System.Threading;
 using System.Text;
 using System.Xml.Serialization;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class NetworkingClient : Networking
@@ -26,6 +27,10 @@ public class NetworkingClient : Networking
 
     public Text text;
     public string msgToshow;
+
+    //Scores
+    public TMP_Text paddle1ScoreText;
+    public TMP_Text paddle2ScoreText;
 
     bool enableMovement;
 
@@ -68,6 +73,7 @@ public class NetworkingClient : Networking
         {
             paddle1_transform.position = new Vector3(7.5f, float.Parse(world_Replication.Paddle1Pos), 0.0f);
             paddle2_transform.position = new Vector3(-7.5f, float.Parse(world_Replication.Paddle2Pos), 0.0f);
+            ball.transform.position = new Vector3(float.Parse(world_Replication.BallPosX), float.Parse(world_Replication.BallPosY), 0.0f);
             enableMovement = !enableMovement;
         }
 
@@ -125,9 +131,6 @@ public class NetworkingClient : Networking
                         break;
 
                     case PacketType.PT_ReplicationData:
-                        
-                        gameManager.paddle1Score = int.Parse(world_Replication.Client1_Score);
-                        gameManager.paddle2Score = int.Parse(world_Replication.Client2_Score);
                         enableMovement = !enableMovement;
                         break;
                 }

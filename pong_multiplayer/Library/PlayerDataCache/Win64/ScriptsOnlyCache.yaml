@@ -1,8 +1,6 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - Ball
-    - GameManager
     - NetworkingClient
     - NetworkingServer
     Unity.2D.Animation.Editor.dll:
@@ -73,35 +71,31 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1844}
+      Script: {instanceID: 1842}
     - Class: 114
-      Script: {instanceID: 1902}
+      Script: {instanceID: 1900}
     - Class: 114
-      Script: {instanceID: 2226}
+      Script: {instanceID: 2224}
     - Class: 114
-      Script: {instanceID: 2234}
+      Script: {instanceID: 2232}
     - Class: 114
-      Script: {instanceID: 2558}
+      Script: {instanceID: 2648}
     - Class: 114
-      Script: {instanceID: 2650}
+      Script: {instanceID: 2808}
     - Class: 114
-      Script: {instanceID: 2810}
+      Script: {instanceID: 2856}
     - Class: 114
-      Script: {instanceID: 2858}
+      Script: {instanceID: 2986}
     - Class: 114
-      Script: {instanceID: 2988}
+      Script: {instanceID: 3028}
     - Class: 114
-      Script: {instanceID: 3030}
+      Script: {instanceID: 3272}
     - Class: 114
-      Script: {instanceID: 3274}
+      Script: {instanceID: 3926}
     - Class: 114
-      Script: {instanceID: 3928}
+      Script: {instanceID: 4718}
     - Class: 114
-      Script: {instanceID: 4474}
-    - Class: 114
-      Script: {instanceID: 4720}
-    - Class: 114
-      Script: {instanceID: 5096}
+      Script: {instanceID: 5094}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -207,7 +201,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: ab1bd30b3787e3bef9f68dbe92a3671f
+      Hash: d328885769b72ea7c39dc5586af6492d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkingClient
@@ -303,7 +297,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 15b6486f91979ccc75953c10d17fd710
+      Hash: 189ad852e870082042fe89bd7ec51730
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkingServer

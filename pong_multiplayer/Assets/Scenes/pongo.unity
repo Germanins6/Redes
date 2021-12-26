@@ -174,8 +174,6 @@ MonoBehaviour:
   initialVelocity: 1
   velocityMultiplier: 1.2
   ballRb: {fileID: 1711632004}
-  paddle1ScoreText: {fileID: 1116788309}
-  paddle2ScoreText: {fileID: 42209678}
   paddle1Score: 0
   paddle2Score: 0
 --- !u!114 &27735446
@@ -197,6 +195,8 @@ MonoBehaviour:
   movement: 0
   text: {fileID: 1805191987}
   msgToshow: 
+  paddle1ScoreText: {fileID: 1116788309}
+  paddle2ScoreText: {fileID: 42209678}
 --- !u!1 &42209677
 GameObject:
   m_ObjectHideFlags: 0
