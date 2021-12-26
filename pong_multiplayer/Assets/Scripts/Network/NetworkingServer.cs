@@ -9,14 +9,20 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using System.Xml.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class NetworkingServer : Networking
 {
 
     private WorldReplication world_Replication;
-    private Dictionary<IPEndPoint, Client> clients;
+    public Dictionary<string, Client> clients;
     private GameManager gameManager;
+
+    int recv;
+
+    public Text text;
+    public string msgToshow;
 
     //Padles info COMO COJO LA INFO DE OTRA ESCENA??¿?¿?¿?¿?¿?
     public Transform paddle1_transform, paddle2_transform;
@@ -44,16 +50,18 @@ public class NetworkingServer : Networking
         //Initialize UDP server
         try
         {
-            listener = new UdpClient(listenPort);
+            listener = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             ipep = new IPEndPoint(IPAddress.Any, listenPort);
+            listener.Bind(ipep);
 
-            //Server receives hello packet from client to join and retrieves id and store info
-            /*
-            Client newPlayer = new Client(ipep, GenerateUUID());
-            clients.Add(ipep, newPlayer);
-            */
+            sender = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6000);
+            remote = sender;
 
-            listener.BeginReceive(new AsyncCallback(AcceptClients), listener);
+            clients = new Dictionary<string, Client>();
+
+            //listener.BeginAccept(new AsyncCallback(AcceptClients), listener);
+            ThreadReceive = new Thread(ReceiveMsg);
+            ThreadReceive.Start();
 
             Debug.Log("Server initialized in [" + ip.ToString() + "] : " + listenPort.ToString());
         }
@@ -65,31 +73,49 @@ public class NetworkingServer : Networking
 
 
     //Receive client connection and store into player list
-    private void AcceptClients(IAsyncResult ias)
+    /*private void AcceptClients(IAsyncResult ias)
     {
-        UdpClient server = ias.AsyncState as UdpClient;
+
+        Socket server = ias.AsyncState as Socket;
 
         try
         {
-            IPEndPoint ipe = ias.AsyncState as IPEndPoint;
+            Socket client = server.EndAccept(ias);
+
+            //UdpClient client = ias.AsyncState as UdpClient;
+            IPEndPoint client_endpoint = client.RemoteEndPoint as IPEndPoint;
+
+            Debug.Log("BBBBBBBBBBBBBBBBB");
+
+            if(client_endpoint == null)
+            {
+                Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
+            }
+            //Server receives hello packet from client to join and retrieves id and store info
+            //Debug.Log(client.Client.RemoteEndPoint.AddressFamily.ToString());
+
+            string id = GenerateUUID();
+
+            Client newPlayer = new Client(client, id);
+
+            clients.Add(id, newPlayer);
+
 
             ThreadReceive = new Thread(ReceiveMsg);
-            ThreadReceive.Start(ipe);
+            ThreadReceive.Start(client_endpoint);
         }
         catch (System.Exception e)
         {
             Debug.Log("Exception: " + e.Message);
         }
 
-
-
-        listener.BeginReceive(new AsyncCallback(AcceptClients), listener);
-    }
-
+        listener.BeginAccept(new AsyncCallback(AcceptClients), listener);
+    }*/
+   
     private void BroadcastWorldState()
     {
         //Foreach pair of player stored in our clientList send worldState
-        foreach(KeyValuePair<IPEndPoint, Client> player in clients)
+        foreach(KeyValuePair<string, Client> player in clients)
         {
             //Call Replication World function each 100ms(?).
             //WordReplication(player.Value.ep, ¿WorldStateData[]?);
@@ -112,26 +138,78 @@ public class NetworkingServer : Networking
 
         //ReceiveMsg();
 
-
-        //Each time we receive an input package we deserialize
-        if (packageDataRcv != null)
-        {
-            float movement = GetInputData(packageDataRcv);
-            Debug.Log(movement);
-        }
+        text.text = msgToshow;
+    
     }
 
 
-    void ReceiveMsg(object ipep_Client_)
+    void ReceiveMsg()
     {
-        IPEndPoint ipep_Client = ipep_Client_ as IPEndPoint;
 
         while (true)
         {
-            packageDataRcv = listener.Receive(ref ipep_Client);
-            Debug.Log(Encoding.ASCII.GetString(packageDataRcv));
+            packageDataRcv = new byte[1024];
+
+            recv = listener.ReceiveFrom(packageDataRcv, ref remote);
+
+            try
+            {
+                if (packageDataRcv != null)
+                    Debug.LogError("PackageFull");
+
+                Client tmp_Client = new Client();
+
+                tmp_Client = DeserializeData();
+
+                switch ((PacketType)int.Parse(tmp_Client.PackageType))
+                {
+                    case PacketType.PT_Hello:
+                    {
+                        string id = GenerateUUID();
+                        
+                        tmp_Client.id = id;                        
+                        tmp_Client.socket_client = remote;
+                        
+                        Debug.LogError(tmp_Client.socket_client);
+                       
+                        clients.Add(id, tmp_Client);
+
+                        tmp_Client.PackageType = 1.ToString();
+                        SerializeClient(tmp_Client);
+                        msgToshow = tmp_Client.id.ToString();
+                        SendMsg(tmp_Client);
+
+                    }
+                        break;
+                    case PacketType.PT_Acknowledge:
+                        break;
+                    case PacketType.PT_InputData:
+                        msgToshow = tmp_Client.PaddleMovement;
+                        Debug.Log(tmp_Client.PaddleMovement);
+                        break;
+                    case PacketType.PT_Disconnect:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e.Message);
+              
+            }
+
+            
+
+            //Debug.Log(Encoding.ASCII.GetString(packageDataRcv));
             Thread.Sleep(50);
         }
+    }
+
+    void SendMsg(Client c)
+    {
+        listener.SendTo(packageDataSnd, packageDataSnd.Length, SocketFlags.None, c.socket_client);        //Send data to client
+
     }
 
     string GenerateUUID()
@@ -150,26 +228,32 @@ public class NetworkingServer : Networking
 
     }
 
-    //Deserialize data from XML file
-    public void DeserializeData()
+    public void SerializeClient(Client c)
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(WorldReplication));
+        //Serialize Data
+        XmlSerializer serializer = new XmlSerializer(typeof(Client));
+        MemoryStream stream = new MemoryStream();
+        serializer.Serialize(stream, c);
+
+        packageDataSnd = stream.ToArray();
+
+    }
+
+    //Deserialize data from XML file
+    public Client DeserializeData()
+    {
+        XmlSerializer serializer = new XmlSerializer(typeof(Client));
         MemoryStream stream = new MemoryStream();
         stream.Write(packageDataRcv, 0, packageDataRcv.Length);
         stream.Seek(0, SeekOrigin.Begin);
 
-        world_Replication = (WorldReplication)serializer.Deserialize(stream);
+        Client client_ = new Client();
+        
+        client_ = (Client)serializer.Deserialize(stream);
+
+        return client_;
     }
 
-    float GetInputData(object data)
-    {
-        //Deserialize
-        float value;
-        byte[] inputPackage = data as byte[];
-        string movement = Encoding.ASCII.GetString(inputPackage);
-        float.TryParse(movement, out value);
-        return value;
-    }
 
     public void MovePaddles(Client c, int i)
     {
@@ -230,39 +314,4 @@ public class NetworkingServer : Networking
     }
 
     #endregion
-}
-
-public class Client
-{
-
-    public Client()
-    {
-        ep = null;
-        id = string.Empty;
-        PaddleMovement = string.Empty;
-    }
-    public Client(IPEndPoint e, string uuid)
-    {
-        ep = e;
-        id = uuid;
-    }
-
-    [XmlIgnore]
-    public IPEndPoint ep;
-
-    [XmlIgnore]
-    public string id;
-
-    [XmlElement("Paddle_Movement")]
-    public string PaddleMovement;
-
-}
-public class WorldReplication
-{
-    //Data
-    public float Paddle1Pos, Paddle2Pos;
-    public Vector2 BallVel;
-
-    public int Client1_Score, Client2_Score;
-    public bool Client1_isConnected, Client2_isConnected;
 }

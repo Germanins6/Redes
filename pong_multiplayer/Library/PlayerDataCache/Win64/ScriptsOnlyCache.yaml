@@ -45,6 +45,7 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/pongo.unity:
     - Class: 1
@@ -77,6 +78,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 1894}
     - Class: 114
       Script: {instanceID: 2218}
+    - Class: 114
+      Script: {instanceID: 2226}
     - Class: 114
       Script: {instanceID: 2550}
     - Class: 114
@@ -204,7 +207,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 0663ff89361e03d78b8d69d19b57be5e
+      Hash: 16649b18d6725de49d213387e5534e20
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkingClient
@@ -300,7 +303,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: e2d1fdc2b7c0f990df19ebcb37c11269
+      Hash: 9eb8fb2d5d85ff96d044f425f062409d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkingServer
@@ -667,4 +670,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/pongo.unity
-  playerPath: C:/Users/germa/Documents/GitHub/Redes/pong_multiplayer/clientbuilds/pong_multiplayer.exe
+  playerPath: C:/Users/Usuario/Desktop/Pong/pong_multiplayer.exe

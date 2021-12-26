@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using System.Xml.Serialization;
+using UnityEngine.UI;
 
 
 public class NetworkingClient : Networking
@@ -22,20 +23,28 @@ public class NetworkingClient : Networking
     string id = Guid.NewGuid().ToString();
     public float movement;
 
+    public Text text;
+    public string msgToshow;
+
     void Start()
     {
         world_Replication = new WorldReplication();
 
         try
         {
-            listener = new UdpClient("127.0.0.1", listenPort);
+            listener = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
             ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), listenPort);
+
+            sender = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6000);
+            remote = sender;
+
             listener.Connect(ipep);
 
             client = new Client();
 
-            ThreadSend = new Thread(SendMsg);
-            ThreadSend.Start(PacketType.PT_Hello);
+            //ThreadSend = new Thread(SendMsg);
+            //ThreadSend.Start();
 
             ThreadReceive = new Thread(ReceiveMsg);
             ThreadReceive.Start();
@@ -52,7 +61,9 @@ public class NetworkingClient : Networking
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        text.text = msgToshow;
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             SendMsg(PacketType.PT_InputData);
     }
 
@@ -60,7 +71,43 @@ public class NetworkingClient : Networking
     {
         while (true)
         {
-            packageDataRcv = listener.Receive(ref ipep);
+            packageDataRcv = new byte[1024];
+
+            listener.Receive(packageDataRcv);
+
+            try
+            {
+                if (packageDataRcv != null)
+                    Debug.LogError("PackageFull");
+
+                Client tmp_Client = new Client();
+                tmp_Client = DeserializeClient();
+
+                switch ((PacketType)int.Parse(tmp_Client.PackageType))
+                {                   
+                    case PacketType.PT_Welcome:
+                        client.id = tmp_Client.id;
+                        client.socket_client = tmp_Client.socket_client;
+
+                        msgToshow = client.id;
+                        break;
+                    case PacketType.PT_Acknowledge:
+                        break;                    
+                    case PacketType.PT_ReplicationData:
+                        packageDataSnd = Encoding.ASCII.GetBytes("Client " + id + " pressing key");
+                        break;
+                    case PacketType.PT_Disconnect:
+                        break;                    
+                    default:
+                        Debug.LogError("HA ENTRADO JOPUTA CLIENT 6");
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e.Message);
+
+            }
             Thread.Sleep(50);
         }
     }
@@ -68,13 +115,12 @@ public class NetworkingClient : Networking
     public void SendMsg(object type)
     {
          
-        var packet = type as PacketType?;
-
-
         switch (type)
         {
             case PacketType.PT_Hello:
-                packageDataSnd = Encoding.ASCII.GetBytes("Hello");
+                int pK = (int)type;
+                client.PackageType = pK.ToString();
+                packageDataSnd = SerializeData(client);
                 break;
             case PacketType.PT_Welcome:
                 break;
@@ -82,12 +128,9 @@ public class NetworkingClient : Networking
                 break;
             case PacketType.PT_InputData:
                 //packageDataSnd = SerializeData(client);
-                packageDataSnd = GetInput();
-                break;
-            case PacketType.PT_ReplicationData:
-                packageDataSnd = Encoding.ASCII.GetBytes("Client " + id + " pressing key");
-                break;
-            case PacketType.PT_Disconnect:
+                client.PaddleMovement = GetInput();
+                client.PackageType = 3.ToString();
+                packageDataSnd = SerializeData(client);
                 break;
             case PacketType.PT_Max:
                 break;
@@ -96,7 +139,7 @@ public class NetworkingClient : Networking
         }
 
 
-        listener.Send(packageDataSnd, packageDataSnd.Length);
+        listener.SendTo(packageDataSnd, packageDataSnd.Length, SocketFlags.None, ipep);
         Thread.Sleep(50);
     }
 
@@ -122,11 +165,25 @@ public class NetworkingClient : Networking
         world_Replication = (WorldReplication)serializer.Deserialize(stream);
     }
 
-    byte[] GetInput()
+    public Client DeserializeClient()
+    {
+        XmlSerializer serializer = new XmlSerializer(typeof(Client));
+        MemoryStream stream = new MemoryStream();
+        stream.Write(packageDataRcv, 0, packageDataRcv.Length);
+        stream.Seek(0, SeekOrigin.Begin);
+
+        Client c = new Client();
+        
+        c = (Client)serializer.Deserialize(stream);
+
+        return c;
+    }
+
+    string GetInput()
     {
         //Serialize
         movement = Input.GetAxisRaw("Vertical");
         string a = movement.ToString();
-        return Encoding.ASCII.GetBytes(a);
+        return a;
     }
 }
