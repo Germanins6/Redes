@@ -27,6 +27,7 @@ public class NetworkingServer : Networking
 
     private float yBound;
     private float speed;
+    float lastMs;
 
     //Ball info??¿?¿?¿?¿?¿?
     //public GameObject ball;
@@ -73,9 +74,7 @@ public class NetworkingServer : Networking
    
     private void HandShakePlayer(Client tmp_Client)
     {
-        string id = GenerateUUID();
-
-        tmp_Client.id = id;
+        tmp_Client.id = GenerateUUID();
         tmp_Client.socket_client = remote;
 
         //Assign paddles to each player
@@ -89,7 +88,7 @@ public class NetworkingServer : Networking
             tmp_Client.PaddleInUse = 2.ToString();
         }
 
-        clients.Add(id, tmp_Client);
+        clients.Add(tmp_Client.id, tmp_Client);
 
         tmp_Client.PackageType = 1.ToString();
 
@@ -103,7 +102,6 @@ public class NetworkingServer : Networking
     {
         //Foreach pair of player stored in our clientList send worldState
         MovePaddles(tmp_Client);
-        Debug.LogError(world_Replication.Paddle1Pos + "   " + world_Replication.Paddle2Pos);
 
         world_Replication.PackageType = 4.ToString();
 
@@ -123,6 +121,8 @@ public class NetworkingServer : Networking
     // Update is called once per frame
     void Update()
     {
+
+        lastMs = Time.deltaTime;
         text.text = msgToshow;
     }
 
@@ -137,9 +137,6 @@ public class NetworkingServer : Networking
 
             try
             {
-                if (packageDataRcv != null)
-                    Debug.LogError("PackageFull");
-
                 Client tmp_Client = new Client();
 
                 tmp_Client = DeserializeData();
@@ -222,13 +219,13 @@ public class NetworkingServer : Networking
         if (int.Parse(c.PaddleInUse) == 1)
         {
             float paddle_pos = float.Parse(world_Replication.Paddle1Pos);
-            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle1Pos) + float.Parse(c.PaddleMovement) * speed * (DateTime.Now.Ticks / 10000000), -yBound, yBound);
+            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle1Pos) + float.Parse(c.PaddleMovement) * speed * lastMs, -yBound, yBound);
             world_Replication.Paddle1Pos = paddle_pos.ToString();
         }
         else
         {
             float paddle_pos = float.Parse(world_Replication.Paddle2Pos);
-            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle2Pos) + float.Parse(c.PaddleMovement) * speed * (DateTime.Now.Ticks/10000000), -yBound, yBound);
+            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle2Pos) + float.Parse(c.PaddleMovement) * speed * lastMs, -yBound, yBound);
             world_Replication.Paddle2Pos = paddle_pos.ToString();
         }
     }

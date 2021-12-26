@@ -73,7 +73,7 @@ public class NetworkingClient : Networking
 
 
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
             SendMsg(PacketType.PT_InputData);
     }
 
@@ -158,7 +158,6 @@ public class NetworkingClient : Networking
             case PacketType.PT_Acknowledge:
                 break;
             case PacketType.PT_InputData:
-                //packageDataSnd = SerializeData(client);
                 client.PaddleMovement = GetInput();
                 client.PackageType = 3.ToString();
                 packageDataSnd = SerializeData(client);
