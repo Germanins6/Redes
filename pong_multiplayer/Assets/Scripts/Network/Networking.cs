@@ -91,6 +91,10 @@ public class Networking : MonoBehaviour
 
             BallVelX = 0.ToString();
             BallVelY = 0.ToString();
+            
+            BallPosX = 0.ToString();
+            BallPosY = 0.ToString();
+
 
             Client1_Score = 0.ToString();
             Client2_Score = 0.ToString();
@@ -112,6 +116,11 @@ public class Networking : MonoBehaviour
         public string BallVelX;
         [XmlElement("BallVelY")]
         public string BallVelY;
+
+        [XmlElement("BallPosX")]
+        public string BallPosX;
+        [XmlElement("BallPosY")]
+        public string BallPosY;
 
         [XmlElement("Client1_Score")]
         public string Client1_Score;

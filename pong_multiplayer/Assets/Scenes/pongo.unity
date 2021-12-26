@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 27735444}
-  - component: {fileID: 27735443}
   - component: {fileID: 27735445}
   - component: {fileID: 27735446}
   m_Layer: 0
@@ -142,25 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &27735443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27735442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96512744968808a4ba9683a8ad563629, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paddle1ScoreText: {fileID: 1116788309}
-  paddle2ScoreText: {fileID: 42209678}
-  paddle1transform: {fileID: 1403897746}
-  paddle2transform: {fileID: 1529102946}
-  balltransform: {fileID: 1711632007}
-  paddle1Score: 0
-  paddle2Score: 0
 --- !u!4 &27735444
 Transform:
   m_ObjectHideFlags: 0
@@ -187,11 +167,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c4dd4c597e64848bbc73accb864815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   text: {fileID: 1805191987}
   msgToshow: 
+  ball: {fileID: 1711632003}
   initialVelocity: 1
   velocityMultiplier: 1.2
   ballRb: {fileID: 1711632004}
+  paddle1ScoreText: {fileID: 1116788309}
+  paddle2ScoreText: {fileID: 42209678}
+  paddle1Score: 0
+  paddle2Score: 0
 --- !u!114 &27735446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b412ec1f8a409546a484a8d7e2e9627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 27735443}
+  gameManager: {fileID: 0}
   paddle1_transform: {fileID: 1403897746}
   paddle2_transform: {fileID: 1529102946}
   ball: {fileID: 1711632003}
@@ -1474,7 +1460,6 @@ GameObject:
   - component: {fileID: 1711632006}
   - component: {fileID: 1711632005}
   - component: {fileID: 1711632004}
-  - component: {fileID: 1711632008}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1594,20 +1579,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1711632008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1711632003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b212bbc953d781409f501f3bd4f8df7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialVelocity: 4
-  velocityMultiplier: 1.1
 --- !u!1 &1805191986
 GameObject:
   m_ObjectHideFlags: 0

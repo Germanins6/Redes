@@ -11,13 +11,14 @@ using System.Text;
 using System.Xml.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using TMPro;
 
 public class NetworkingServer : Networking
 {
 
     private WorldReplication world_Replication;
     public Dictionary<string, Client> clients;
-    private GameManager gameManager;
+    public GameManager gameManager;
 
     int recv;
     bool paddle;
@@ -27,15 +28,21 @@ public class NetworkingServer : Networking
 
     private float yBound;
     private float speed;
-
+    float lastMs;
     //Ball info??¿?¿?¿?¿?¿?
-    //public GameObject ball;
+    public GameObject ball;
+
 
     public float initialVelocity;
     public float velocityMultiplier;
     private Vector2 Vel;
     public Rigidbody2D ballRb;
 
+    //Scores
+    [SerializeField] private TMP_Text paddle1ScoreText;
+    [SerializeField] private TMP_Text paddle2ScoreText;
+    public int paddle1Score;
+    public int paddle2Score;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,9 +80,7 @@ public class NetworkingServer : Networking
    
     private void HandShakePlayer(Client tmp_Client)
     {
-        string id = GenerateUUID();
-
-        tmp_Client.id = id;
+        tmp_Client.id = GenerateUUID();
         tmp_Client.socket_client = remote;
 
         //Assign paddles to each player
@@ -89,7 +94,7 @@ public class NetworkingServer : Networking
             tmp_Client.PaddleInUse = 2.ToString();
         }
 
-        clients.Add(id, tmp_Client);
+        clients.Add(tmp_Client.id, tmp_Client);
 
         tmp_Client.PackageType = 1.ToString();
 
@@ -103,7 +108,7 @@ public class NetworkingServer : Networking
     {
         //Foreach pair of player stored in our clientList send worldState
         MovePaddles(tmp_Client);
-        Debug.LogError(world_Replication.Paddle1Pos + "   " + world_Replication.Paddle2Pos);
+      
 
         world_Replication.PackageType = 4.ToString();
 
@@ -124,6 +129,8 @@ public class NetworkingServer : Networking
     void Update()
     {
         text.text = msgToshow;
+        lastMs = Time.deltaTime;
+        CheckScore();
     }
 
     void ReceiveMsg()
@@ -137,9 +144,7 @@ public class NetworkingServer : Networking
 
             try
             {
-                if (packageDataRcv != null)
-                    Debug.LogError("PackageFull");
-
+               
                 Client tmp_Client = new Client();
 
                 tmp_Client = DeserializeData();
@@ -222,13 +227,13 @@ public class NetworkingServer : Networking
         if (int.Parse(c.PaddleInUse) == 1)
         {
             float paddle_pos = float.Parse(world_Replication.Paddle1Pos);
-            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle1Pos) + float.Parse(c.PaddleMovement) * speed * (DateTime.Now.Ticks / 10000000), -yBound, yBound);
+            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle1Pos) + float.Parse(c.PaddleMovement) * speed * lastMs, -yBound, yBound);
             world_Replication.Paddle1Pos = paddle_pos.ToString();
         }
         else
         {
             float paddle_pos = float.Parse(world_Replication.Paddle2Pos);
-            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle2Pos) + float.Parse(c.PaddleMovement) * speed * (DateTime.Now.Ticks/10000000), -yBound, yBound);
+            paddle_pos = Mathf.Clamp(float.Parse(world_Replication.Paddle2Pos) + float.Parse(c.PaddleMovement) * speed * lastMs, -yBound, yBound);
             world_Replication.Paddle2Pos = paddle_pos.ToString();
         }
     }
@@ -236,11 +241,41 @@ public class NetworkingServer : Networking
     //Initial launch of the ball
     public void Launch()
     {
+        ball.transform.position = new Vector2(0, 0);
         Vel.x = Random.Range(0, 2) == 0 ? 1 : -1;
         Vel.y = Random.Range(0, 2) == 0 ? 1 : -1;
         ballRb.velocity = new Vector2(Vel.x, Vel.y) * initialVelocity;
     }
+    public void Paddle1Scored()
+    {
+        paddle1Score++;
+        paddle1ScoreText.text = paddle1Score.ToString();
 
+    }
+
+    public void Paddle2Scored()
+    {
+        paddle2Score++;
+        paddle2ScoreText.text = paddle2Score.ToString();
+
+    }
+
+    public void CheckScore() 
+    {
+        if (ball.transform.position.x < -8.2)
+        {
+            Paddle1Scored();
+            Launch();
+            
+        }
+        else if (ball.transform.position.x > 8.2)
+        {
+
+            Paddle2Scored();
+            Launch();
+        }
+
+    }
     #region InitializeAll 
 
     //Initialize Ball
@@ -248,6 +283,8 @@ public class NetworkingServer : Networking
     {
         initialVelocity = 4.0f;
         velocityMultiplier = 1.1f;
+        ballRb = ball.GetComponent<Rigidbody2D>();
+        Launch();
     }
 
     //Initialize Paddles
