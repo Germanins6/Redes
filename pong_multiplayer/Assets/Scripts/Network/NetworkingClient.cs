@@ -20,6 +20,7 @@ public class NetworkingClient : Networking
     public GameObject ball;
 
     string id = Guid.NewGuid().ToString();
+    public float movement;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class NetworkingClient : Networking
             ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), listenPort);
             listener.Connect(ipep);
 
-            //client = new Client();
+            client = new Client();
 
             ThreadSend = new Thread(SendMsg);
             ThreadSend.Start(PacketType.PT_Hello);
@@ -51,8 +52,8 @@ public class NetworkingClient : Networking
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)
-            SendMsg(PacketType.PT_ReplicationData);
+        if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+            SendMsg(PacketType.PT_InputData);
     }
 
     void ReceiveMsg()
@@ -80,7 +81,8 @@ public class NetworkingClient : Networking
             case PacketType.PT_Acknowledge:
                 break;
             case PacketType.PT_InputData:
-                packageDataSnd = SerializeData(client);
+                //packageDataSnd = SerializeData(client);
+                packageDataSnd = GetInput();
                 break;
             case PacketType.PT_ReplicationData:
                 packageDataSnd = Encoding.ASCII.GetBytes("Client " + id + " pressing key");
@@ -96,17 +98,6 @@ public class NetworkingClient : Networking
 
         listener.Send(packageDataSnd, packageDataSnd.Length);
         Thread.Sleep(50);
-    }
-
-
-    void SendPackets()
-    {
-
-    }
-
-    void ProcessPacket(ref MemoryStream stream, ref UdpClient client)
-    {
-
     }
 
     //Serialize data and save it to XML file
@@ -129,5 +120,13 @@ public class NetworkingClient : Networking
         stream.Seek(0, SeekOrigin.Begin);
 
         world_Replication = (WorldReplication)serializer.Deserialize(stream);
+    }
+
+    byte[] GetInput()
+    {
+        //Serialize
+        movement = Input.GetAxisRaw("Vertical");
+        string a = movement.ToString();
+        return Encoding.ASCII.GetBytes(a);
     }
 }

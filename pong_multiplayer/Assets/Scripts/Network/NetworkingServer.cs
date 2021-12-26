@@ -109,7 +109,18 @@ public class NetworkingServer : Networking
         //    i++;
         //}
 
+
+        //ReceiveMsg();
+
+
+        //Each time we receive an input package we deserialize
+        if (packageDataRcv != null)
+        {
+            float movement = GetInputData(packageDataRcv);
+            Debug.Log(movement);
+        }
     }
+
 
     void ReceiveMsg(object ipep_Client_)
     {
@@ -148,6 +159,16 @@ public class NetworkingServer : Networking
         stream.Seek(0, SeekOrigin.Begin);
 
         world_Replication = (WorldReplication)serializer.Deserialize(stream);
+    }
+
+    float GetInputData(object data)
+    {
+        //Deserialize
+        float value;
+        byte[] inputPackage = data as byte[];
+        string movement = Encoding.ASCII.GetString(inputPackage);
+        float.TryParse(movement, out value);
+        return value;
     }
 
     public void MovePaddles(Client c, int i)

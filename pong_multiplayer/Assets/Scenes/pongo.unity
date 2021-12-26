@@ -198,7 +198,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27735442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b412ec1f8a409546a484a8d7e2e9627, type: 3}
   m_Name: 
@@ -206,6 +206,7 @@ MonoBehaviour:
   paddle1_transform: {fileID: 0}
   paddle2_transform: {fileID: 0}
   ball: {fileID: 0}
+  movement: 0
 --- !u!1 &42209677
 GameObject:
   m_ObjectHideFlags: 0
