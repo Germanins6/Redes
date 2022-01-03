@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
 
-    [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
     [SerializeField]
     private byte maxPlayersPerRoom = 2;
 
-    [Tooltip("The Ui Panel to let the user enter name, connect and play")]
     [SerializeField]
     private GameObject controlPanel;
-    [Tooltip("The UI Label to inform the user that the connection is in progress")]
+
     [SerializeField]
     private GameObject progressLabel;
+    private Text progressText;
 
     string gameVersion = "1";
+
+    bool isConnecting;
+
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        progressText = progressLabel.GetComponent<Text>();
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
     }
@@ -41,7 +45,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinRandomRoom();
         else
         {
-            PhotonNetwork.ConnectUsingSettings();
+            isConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
         }
     }
@@ -49,13 +53,18 @@ public class Launcher : MonoBehaviourPunCallbacks
     #region MonoBehaviourPunCallbacks Callbacks
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinRandomRoom();
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+        if (isConnecting)
+        {
+            PhotonNetwork.JoinRandomRoom();
+            isConnecting = false;
+            Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+        }
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
+        isConnecting = false;
 
         Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
     }
@@ -72,7 +81,16 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+        Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            Debug.Log("We load the arena when 2 players ready");
+            PhotonNetwork.LoadLevel("Arena");
+        }
+
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+        progressText.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString();
     }
     #endregion
 }
