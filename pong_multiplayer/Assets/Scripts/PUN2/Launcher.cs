@@ -79,18 +79,29 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     }
 
+    //Joined to lobby
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
 
+
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+        
+        foreach(KeyValuePair<int,Player> player in PhotonNetwork.CurrentRoom.Players)
+        {
+            progressText.text += " " + player.Value.NickName;
+        }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        //If We reach 2 players into our lobby load arena for both 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             Debug.Log("We load the arena when 2 players ready");
             PhotonNetwork.LoadLevel("Arena");
         }
-
-        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-        progressText.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString();
+        base.OnPlayerEnteredRoom(newPlayer);
     }
     #endregion
 }

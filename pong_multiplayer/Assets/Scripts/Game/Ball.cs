@@ -37,13 +37,13 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Goal1"))
         {
             //NetworkingServer.gameManager.Paddle2Scored();
-            GameManager.Instance.Restart();
+            //GameManager.Instance.Restart();
             Launch();
         }
         else 
         {
-            GameManager.Instance.Paddle1Scored();
-            GameManager.Instance.Restart();
+            //GameManager.Instance.Paddle1Scored();
+            //GameManager.Instance.Restart();
             Launch();
         }
     }
