@@ -28,7 +28,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -50,7 +49,7 @@ ScriptsOnlyBuild:
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
     Unity.Timeline.Editor.dll:
-    - TimelinePreferences
+    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -90,6 +89,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 62
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 104
@@ -102,6 +103,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 1900}
     - Class: 114
       Script: {instanceID: 2064}
+    - Class: 114
+      Script: {instanceID: 2688}
     - Class: 114
       Script: {instanceID: 2792}
     - Class: 114
@@ -506,7 +509,7 @@ ScriptsOnlyBuild:
     className: CountOfPlayersInRoomProperty
   - hash:
       serializedVersion: 2
-      Hash: 12971b02bc7af4bf01e101c9318c4ca4
+      Hash: 54e0d49b47d44e1d289183d2519a079f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager2
@@ -656,7 +659,7 @@ ScriptsOnlyBuild:
     className: PhotonHandler
   - hash:
       serializedVersion: 2
-      Hash: 7ec9ef27c748ce9cd7aec9ee8f8e1469
+      Hash: 3635fb16e528169b2e40c38c99a95e37
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Ball
@@ -1732,4 +1735,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Launcher.unity
   - Assets/Scenes/Arena.unity
-  playerPath: C:/Users/germa/OneDrive/Desktop/Arena/pong_multiplayer.exe
+  playerPath: C:/Users/Usuario/Desktop/Arena2/Nueva carpeta/pong_multiplayer.exe

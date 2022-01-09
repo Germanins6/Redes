@@ -437,6 +437,14 @@ PrefabInstance:
       propertyPath: paddle_prefab
       value: 
       objectReference: {fileID: 1155162094902584196, guid: 9e347122b3e7e1c4481cb8f0f85155c3, type: 3}
+    - target: {fileID: 2345212781167985480, guid: 959cb92e72c07f848a860a6c787d92ef, type: 3}
+      propertyPath: paddle1ScoreText
+      value: 
+      objectReference: {fileID: 1116788309}
+    - target: {fileID: 2345212781167985480, guid: 959cb92e72c07f848a860a6c787d92ef, type: 3}
+      propertyPath: paddle2ScoreText
+      value: 
+      objectReference: {fileID: 42209678}
     - target: {fileID: 5222709035841805059, guid: 959cb92e72c07f848a860a6c787d92ef, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -782,7 +790,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1187,7 +1195,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

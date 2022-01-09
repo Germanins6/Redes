@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialVelocity: 4
   velocityMultiplier: 1.1
+  gamemanager: {fileID: 0}
 --- !u!114 &-322098574144192480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObservedComponentsFoldoutOpen: 1
   Group: 0
-  prefixField: -1
+  prefixField: 0
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
