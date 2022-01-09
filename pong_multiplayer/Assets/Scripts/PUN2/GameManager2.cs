@@ -12,18 +12,31 @@ using UnityEngine.UI;
 
 public class GameManager2 : MonoBehaviourPunCallbacks
 {
-    public GameObject prefab;
+    public GameObject ball;
+    public GameObject paddle;
+
+    public GameObject firstPaddle;
+    public GameObject secondPaddle;
+
     public Text nickName;
     public Text enemyNickName;
+
+    private float speed;
 
 
     //If we reach this room CORUTINE game start and spawn a ball
     public void Start()
     {
+        speed = 1.05f;
+        
+        if (ball != null)
+            SpawnBall();
 
-        if(prefab != null)
-            PhotonNetwork.Instantiate(this.prefab.name, Vector3.zero, Quaternion.identity);
+        //if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
 
+        //Instantiate both paddles
+        firstPaddle = PhotonNetwork.Instantiate(this.paddle.name, new Vector3(-7.5f, 0.0f, 0.0f), Quaternion.identity);
+        secondPaddle = PhotonNetwork.Instantiate(this.paddle.name, new Vector3(7.5f, 0.0f, 0.0f), Quaternion.identity);
 
 
         nickName.text = PhotonNetwork.LocalPlayer.NickName;
@@ -34,6 +47,11 @@ public class GameManager2 : MonoBehaviourPunCallbacks
             if (player.Value.NickName != PhotonNetwork.LocalPlayer.NickName)
                 enemyNickName.text = player.Value.NickName;
         }
+    }
+
+    public void Update()
+    {
+        GetInput();
     }
 
     public override void OnLeftRoom()
@@ -78,5 +96,16 @@ public class GameManager2 : MonoBehaviourPunCallbacks
             Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
             LoadArena();
         }
+    }
+
+    public void GetInput()
+    {
+        float movement = Input.GetAxisRaw("Vertical");
+        firstPaddle.transform.position = new Vector3(firstPaddle.transform.position.x ,Mathf.Clamp(firstPaddle.transform.position.y + movement * speed, -3.75f, 3.75f) , 0.0f);
+    }
+
+    public void SpawnBall()
+    {
+        PhotonNetwork.Instantiate(this.ball.name, Vector3.zero, Quaternion.identity);
     }
 }
