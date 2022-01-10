@@ -13,10 +13,17 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private GameObject controlPanel;
+    [SerializeField]
+    private GameObject roomPanel;
+    [SerializeField]
+    private GameObject CreateRoomPanel;
 
     [SerializeField]
     private GameObject progressLabel;
     private Text progressText;
+
+    [SerializeField]
+    private Text roomName;
 
     string gameVersion = "1";
 
@@ -34,15 +41,22 @@ public class Launcher : MonoBehaviourPunCallbacks
         progressText = progressLabel.GetComponent<Text>();
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
+        roomPanel.SetActive(false);
+        CreateRoomPanel.SetActive(false);
+
     }
 
     public void Connect()
     {
-        progressLabel.SetActive(true);
+        progressLabel.SetActive(false);
         controlPanel.SetActive(false);
+        roomPanel.SetActive(true);
 
         if (PhotonNetwork.IsConnected)
-            PhotonNetwork.JoinRandomRoom();
+        {
+
+        }
+
         else
         {
             isConnecting = PhotonNetwork.ConnectUsingSettings();
@@ -55,27 +69,42 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         if (isConnecting)
         {
-            PhotonNetwork.JoinRandomRoom();
             isConnecting = false;
             Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
         }
     }
+
+    public void OnClickChangeRoomButton()
+    {
+        CreateRoomPanel.SetActive(true);
+        roomPanel.SetActive(false);
+
+    }
+
+    public void CreateRoom()
+    {
+        PhotonNetwork.CreateRoom(roomName.text, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        Debug.Log(roomName.text);
+        GameObject newRoom = new GameObject(roomName.text);
+        roomPanel.SetActive(true);
+        CreateRoomPanel.SetActive(false);
+
+    }
+    public void JoinRoom()
+    {
+        PhotonNetwork.JoinRoom(roomName.text);
+    }
+
     public override void OnDisconnected(DisconnectCause cause)
     {
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
+        roomPanel.SetActive(false);
+        CreateRoomPanel.SetActive(false);
+
         isConnecting = false;
 
         Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
-
-        // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-        //Instead using this: -->  PhotonNetwork.CreateRoom(null, new RoomOptions());
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
     }
 
     //Joined to lobby
@@ -92,6 +121,16 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("OnCreatedRoom() called by PUN. Now this client has created a room.", this);
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+        Debug.Log(message);
+    }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         //If We reach 2 players into our lobby load arena for both 
