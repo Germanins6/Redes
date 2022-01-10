@@ -38,11 +38,12 @@ MonoBehaviour:
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
   - GetInput
-  - UpdateScore
   - InitializeGO
+  - RespawnSpaceship
   - Restart
+  - UpdateScore
+  - InitializeGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

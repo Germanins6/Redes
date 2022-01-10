@@ -12,16 +12,14 @@ using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+
     public GameObject ball;
     public GameObject paddle;
 
-    private GameObject firstPaddle;
-    private GameObject secondPaddle;
+    private GameObject ballGO = null;
 
-    public Text nickName;
-    public Text enemyNickName;
-
-    private const float speed = 7.0f;
+    public Text Player1ID;
+    public Text Player2ID;
 
     //Score UI
     public TMP_Text paddle1ScoreText;
@@ -37,15 +35,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void Start()
     {
         //Instantiate gameObjects in the room
-        InitializeGO();
+        InitializeGame();
     }
 
     public void Update()
-    {
-        //Just get input information if we are ready to play
-        if (playingGame)
-            GetInput();
-
+    { 
+        if (ballGO != null)
+            if (Input.GetKeyDown(KeyCode.Space) && PhotonNetwork.IsMasterClient)
+                ballGO.GetComponent<Ball>().Launch();
     }
 
     public override void OnLeftRoom()
@@ -58,20 +55,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
- 
-
+    
     public override void OnPlayerEnteredRoom(Player other)
     {
-        Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
+        Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName.ToString()); // not seen if you're the player connecting
 
         if (PhotonNetwork.IsMasterClient)
         {
+            Player1ID.text = PhotonNetwork.LocalPlayer.NickName;
             Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
         }
-        
-
-        nickName.text = PhotonNetwork.LocalPlayer.NickName;
-        enemyNickName.text = other.NickName;
+        else
+        {
+            Player2ID.text = other.NickName.ToString();
+        }
 
     }
 
@@ -84,17 +81,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
         }
-    }
-
-    [PunRPC]
-    public void GetInput()
-    {
-        float movement = Input.GetAxisRaw("Vertical");
-
-        if (PhotonNetwork.IsMasterClient)
-            firstPaddle.transform.position = new Vector3(firstPaddle.transform.position.x, Mathf.Clamp(firstPaddle.transform.position.y + movement * speed * Time.deltaTime, -3.75f, 3.75f), 0.0f);
-        else
-            secondPaddle.transform.position = new Vector3(secondPaddle.transform.position.x, Mathf.Clamp(secondPaddle.transform.position.y + movement * speed * Time.deltaTime, -3.75f, 3.75f), 0.0f);
     }
 
     [PunRPC]
@@ -114,31 +100,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void Restart()
+    public void InitializeGame()
     {
-        //Master client destroys all gameobjects
-        if (PhotonNetwork.IsMasterClient)
-            PhotonNetwork.DestroyAll();
-
-        //Instance once again all gO
-        InitializeGO();
-    }
-
-    [PunRPC]
-    public void InitializeGO()
-    {
-
-        //Create and assign paddles for each player
+        //Delete current ball and instance new
         if (PhotonNetwork.IsMasterClient)
         {
-            firstPaddle = PhotonNetwork.Instantiate(this.paddle.name, new Vector3(-7.5f, 0.0f, 0.0f), Quaternion.identity);
-
-            //Instantiate Ball
-            PhotonNetwork.Instantiate(this.ball.name, Vector3.zero, Quaternion.identity);
-        }
-        else
-        {
-            secondPaddle = PhotonNetwork.Instantiate(this.paddle.name, new Vector3(7.5f, 0.0f, 0.0f), Quaternion.identity);
+            PhotonNetwork.Destroy(ballGO);
+            ballGO = PhotonNetwork.Instantiate(this.ball.name, Vector3.zero, Quaternion.identity);
         }
 
         //Enable receiving inputs once again after instancing gameobjects

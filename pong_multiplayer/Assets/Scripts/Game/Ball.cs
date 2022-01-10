@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+
     [SerializeField] private float initialVelocity = 4f;
     [SerializeField] private float velocityMultiplier = 1.1f;
 
@@ -12,16 +13,18 @@ public class Ball : MonoBehaviour
 
     public AudioClip wallBlip;
 
+
     void Start()
     {
         gamemanager = GameObject.Find("GameManager");
         ballRb = GetComponent<Rigidbody2D>();
-        Launch();
+        //Launch();
+
     }
 
 
     //Initial launch of the ball
-    private void Launch()
+    public void Launch()
     {
         float xVelocity = Random.Range(0, 2) == 0 ? 1 : -1;
         float yVelocity = Random.Range(0, 2) == 0 ? 1 : -1;
@@ -44,13 +47,13 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Goal1"))
         {
             gamemanager.GetComponent<GameManager>().UpdateScore(1);
-            gamemanager.GetComponent<GameManager>().Restart();
+            gamemanager.GetComponent<GameManager>().InitializeGame();
         }
         
         if(collision.gameObject.CompareTag("Goal2"))
         {
             gamemanager.GetComponent<GameManager>().UpdateScore(2);
-            gamemanager.GetComponent<GameManager>().Restart();
+            gamemanager.GetComponent<GameManager>().InitializeGame();
         }
     }
 }
