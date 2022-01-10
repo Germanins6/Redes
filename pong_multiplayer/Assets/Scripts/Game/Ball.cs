@@ -10,6 +10,8 @@ public class Ball : MonoBehaviour
     public GameObject gamemanager;
     private Rigidbody2D ballRb;
 
+    public AudioClip wallBlip;
+
     void Start()
     {
         gamemanager = GameObject.Find("GameManager");
@@ -24,32 +26,31 @@ public class Ball : MonoBehaviour
         float xVelocity = Random.Range(0, 2) == 0 ? 1 : -1;
         float yVelocity = Random.Range(0, 2) == 0 ? 1 : -1;
         ballRb.velocity = new Vector2(xVelocity, yVelocity) * initialVelocity;
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Paddle"))
-        {
             ballRb.velocity *= velocityMultiplier;
-        }
+
+        this.GetComponent<AudioSource>().PlayOneShot(wallBlip);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //If we collide with some wall stop game receiving input, destroy gameobjects for each player, add point and restart
+        gamemanager.GetComponent<GameManager>().playingGame = false;
+
         if (collision.gameObject.CompareTag("Goal1"))
         {
-            gamemanager.GetComponent<GameManager2>().Paddle2Scored();
-            gamemanager.GetComponent<GameManager2>().Restart();
-
+            gamemanager.GetComponent<GameManager>().UpdateScore(1);
+            gamemanager.GetComponent<GameManager>().Restart();
         }
-        else
+        
+        if(collision.gameObject.CompareTag("Goal2"))
         {
-            gamemanager.GetComponent<GameManager2>().Paddle1Scored();
-            gamemanager.GetComponent<GameManager2>().Restart();
-
+            gamemanager.GetComponent<GameManager>().UpdateScore(2);
+            gamemanager.GetComponent<GameManager>().Restart();
         }
     }
-
-
 }

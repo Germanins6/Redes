@@ -76,7 +76,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
         //Instead using this: -->  PhotonNetwork.CreateRoom(null, new RoomOptions());
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
-
     }
 
     //Joined to lobby

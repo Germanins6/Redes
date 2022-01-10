@@ -1,0 +1,2 @@
+C:\Users\germa\Documents\GitHub\Redes\pong_multiplayer\obj\Debug\PhotonUnityNetworking.Demos.csproj.AssemblyReference.cache
+C:\Users\germa\Documents\GitHub\Redes\pong_multiplayer\obj\Debug\PhotonUnityNetworking.Demos.csproj.CoreCompileInputs.cache

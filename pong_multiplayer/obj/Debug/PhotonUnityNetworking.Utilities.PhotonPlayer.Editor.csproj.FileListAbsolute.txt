@@ -1,0 +1,1 @@
+C:\Users\germa\Documents\GitHub\Redes\pong_multiplayer\obj\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj.CoreCompileInputs.cache
