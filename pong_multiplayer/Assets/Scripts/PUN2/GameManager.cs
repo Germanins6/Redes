@@ -8,8 +8,6 @@ using Photon.Pun;
 using Photon.Realtime;
 
 using UnityEngine.UI;
-using TMPro;
-
 public class GameManager : MonoBehaviourPunCallbacks
 {
 
@@ -22,13 +20,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Text Player2ID;
 
     //Score UI
-    public TMP_Text paddle1ScoreText;
-    public TMP_Text paddle2ScoreText;
+    public Text paddle1ScoreText;
+    public Text paddle2ScoreText;
 
     private int paddle1Score = 0;
     private int paddle2Score = 0;
 
-    public bool playingGame = false;
+    public bool playingGame = false; 
 
 
     //If we reach this room CORUTINE game start and spawn a ball
@@ -36,6 +34,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         //Instantiate gameObjects in the room
         InitializeGame();
+
+        Player1ID.text = PhotonNetwork.PlayerList[0].NickName;
+        Player2ID.text = PhotonNetwork.PlayerList[1].NickName;
     }
 
     public void Update()
@@ -43,6 +44,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (ballGO != null)
             if (Input.GetKeyDown(KeyCode.Space) && PhotonNetwork.IsMasterClient)
                 ballGO.GetComponent<Ball>().Launch();
+
+        //If player presses escape button leaves application and reach lobby again
+        if (Input.GetKeyDown(KeyCode.Escape))
+            LeaveRoom();
     }
 
     public override void OnLeftRoom()
@@ -53,23 +58,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-    }
-
-    
-    public override void OnPlayerEnteredRoom(Player other)
-    {
-        Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName.ToString()); // not seen if you're the player connecting
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Player1ID.text = PhotonNetwork.LocalPlayer.NickName;
-            Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-        }
-        else
-        {
-            Player2ID.text = other.NickName.ToString();
-        }
-
     }
 
     //If any of our 2 players leave the room call automatically load lobby.
@@ -105,7 +93,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Delete current ball and instance new
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Destroy(ballGO);
+            if(ballGO != null)
+                PhotonNetwork.Destroy(ballGO);
+
             ballGO = PhotonNetwork.Instantiate(this.ball.name, Vector3.zero, Quaternion.identity);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+
 using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
@@ -16,7 +17,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private GameObject progressLabel;
-    private Text progressText;
+
+    [SerializeField]
+    public Text playersConnected;
 
     string gameVersion = "1";
 
@@ -31,7 +34,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        progressText = progressLabel.GetComponent<Text>();
+        playersConnected.text = string.Empty;
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
     }
@@ -85,22 +88,51 @@ public class Launcher : MonoBehaviourPunCallbacks
 
 
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-        
-        foreach(KeyValuePair<int,Player> player in PhotonNetwork.CurrentRoom.Players)
-        {
-            progressText.text += " " + player.Value.NickName;
-        }
+
+        foreach (Player player in PhotonNetwork.PlayerList)
+            playersConnected.text += "\n" + "[" + player.ActorNumber + "] " + player.NickName;
+
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         //If We reach 2 players into our lobby load arena for both 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-        {
-            Debug.Log("We load the arena when 2 players ready");
-            PhotonNetwork.LoadLevel("Arena");
-        }
+            StartCoroutine(MasterLoadScene());
+        
         base.OnPlayerEnteredRoom(newPlayer);
     }
+
+    IEnumerator MasterLoadScene()
+    {
+        System.DateTime time1 = System.DateTime.UtcNow;
+        //Debug.Log("Starting Coroutine!");
+
+        //if time passed is greater than 10 seconds, update vertices
+        while (true)
+        {
+            System.DateTime time2 = System.DateTime.UtcNow;
+            System.TimeSpan diff = time2 - time1;
+            if (diff.Seconds > 3)
+            {
+                PhotonNetwork.LoadLevel("Arena");
+                time1 = System.DateTime.UtcNow;
+                ;
+            }
+            yield return null;
+        }
+    }
+
+    /*
+    IEnumerator MasterLoadScene()
+    {
+        new WaitForSeconds(5.0f);
+
+        if(PhotonNetwork.IsMasterClient)
+            PhotonNetwork.LoadLevel("Arena");
+
+        yield return null;
+    }
+    */
     #endregion
 }

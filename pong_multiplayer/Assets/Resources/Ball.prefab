@@ -152,6 +152,9 @@ MonoBehaviour:
   velocityMultiplier: 1.1
   gamemanager: {fileID: 0}
   wallBlip: {fileID: 8300000, guid: b7e889307127f9c4d92a746a80c281e4, type: 3}
+  pointBlip: {fileID: 8300000, guid: 805e97e5920aaf54aaa271916b42aa8d, type: 3}
+  paddleBlip: {fileID: 8300000, guid: ee3bb5a2455f3a14cbf0031e13bcf34b, type: 3}
+  launchBlip: {fileID: 8300000, guid: 4ec3c20b29209ff4a8d36925f50a7928, type: 3}
 --- !u!114 &-322098574144192480
 MonoBehaviour:
   m_ObjectHideFlags: 0
