@@ -421,6 +421,7 @@ MonoBehaviour:
   controlPanel: {fileID: 1297126452}
   roomPanel: {fileID: 1087973082}
   CreateRoomPanel: {fileID: 1263202805}
+  RoomButton: {fileID: 5837168803038115880, guid: 426745c0c3bc40e41b803eeccfcbd222, type: 3}
   progressLabel: {fileID: 130661879}
   roomName: {fileID: 603630409}
 --- !u!4 &160716723
@@ -851,7 +852,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 160716722}
         m_TargetAssemblyTypeName: Launcher, Assembly-CSharp
-        m_MethodName: OnClickChangeRoomButton
+        m_MethodName: OnClickCreateRoomButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -17,6 +17,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     private GameObject roomPanel;
     [SerializeField]
     private GameObject CreateRoomPanel;
+    [SerializeField]
+    private GameObject RoomButton;
 
     [SerializeField]
     private GameObject progressLabel;
@@ -24,6 +26,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private Text roomName;
+
+    //Button connectToNewRoom;
 
     string gameVersion = "1";
 
@@ -74,25 +78,28 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnClickChangeRoomButton()
+    public void OnClickCreateRoomButton()
     {
         CreateRoomPanel.SetActive(true);
         roomPanel.SetActive(false);
 
     }
 
+    public void OnClickJoinRoom()
+    {
+        CreateRoomPanel.SetActive(false);
+        roomPanel.SetActive(false);
+        PhotonNetwork.JoinRoom(roomName.text);
+
+    }
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(roomName.text, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        PhotonNetwork.CreateRoom(roomName.text, new RoomOptions { MaxPlayers = 0 });
         Debug.Log(roomName.text);
-        GameObject newRoom = new GameObject(roomName.text);
+        Instantiate(RoomButton);
         roomPanel.SetActive(true);
         CreateRoomPanel.SetActive(false);
 
-    }
-    public void JoinRoom()
-    {
-        PhotonNetwork.JoinRoom(roomName.text);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
