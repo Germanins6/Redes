@@ -102,4 +102,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Enable receiving inputs once again after instancing gameobjects
         playingGame = true;
     }
+
+    public void CreatePowerUp(BallType type)
+    {
+
+        
+        switch (type)
+        {
+            case BallType.BT_IncreaseBallSize:
+                break;
+            case BallType.BT_DecreaseBallSize:
+                break;
+        }
+    }
 }

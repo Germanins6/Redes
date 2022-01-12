@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BallType
+{
+    BT_None = -1,
+
+    BT_IncreaseBallSize,
+    BT_DecreaseBallSize,
+    //BT_SpeedUpPaddle,
+    //BT_SpeedDownPaddle,
+    //BT_InvertRawAxis,
+    BT_Max
+}
 public class Ball : MonoBehaviour
 {
 
@@ -16,12 +27,20 @@ public class Ball : MonoBehaviour
     public AudioClip paddleBlip;
     public AudioClip launchBlip;
 
+    public BallType Balltype;
+
+    public Ball(BallType type)
+    {
+        Balltype = type;
+    }
 
     void Start()
     {
         gamemanager = GameObject.Find("GameManager");
         ballRb = GetComponent<Rigidbody2D>();
-        //Launch();
+
+        //Corutina para lanzar TODO
+        Launch();
     }
 
 
@@ -38,8 +57,15 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Paddle"))
         {
-            this.GetComponent<AudioSource>().PlayOneShot(paddleBlip);
-            ballRb.velocity *= velocityMultiplier;
+            if (Balltype == BallType.BT_None) {
+
+                this.GetComponent<AudioSource>().PlayOneShot(paddleBlip);
+                ballRb.velocity *= velocityMultiplier;
+            }
+            else
+            {
+
+            }   
         }
         else
         {

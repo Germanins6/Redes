@@ -718,7 +718,7 @@ ScriptsOnlyBuild:
     className: PhotonHandler
   - hash:
       serializedVersion: 2
-      Hash: 33e02806f0f043a4b7a4b4b31a1dbe8c
+      Hash: 750dee0b3bd347670af0413b44b891c3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Ball
@@ -1854,4 +1854,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Launcher.unity
   - Assets/Scenes/Arena.unity
-  playerPath: C:/Users/germa/OneDrive/Desktop/Arena/pong_multiplayer.exe
+  playerPath: C:/Users/germa/Downloads/Desktop/Arena/pong_multiplayer.exe
