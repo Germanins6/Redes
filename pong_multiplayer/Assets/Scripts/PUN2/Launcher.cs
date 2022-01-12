@@ -14,9 +14,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject controlPanel;
     [SerializeField]
-    private GameObject roomPanel;
+    private GameObject launcherRoomPanel;
     [SerializeField]
     private GameObject CreateRoomPanel;
+    [SerializeField]
+    private GameObject RoomsPanel;
     [SerializeField]
     private GameObject RoomButton;
 
@@ -45,7 +47,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         progressText = progressLabel.GetComponent<Text>();
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
-        roomPanel.SetActive(false);
+        launcherRoomPanel.SetActive(false);
         CreateRoomPanel.SetActive(false);
 
     }
@@ -54,7 +56,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         progressLabel.SetActive(false);
         controlPanel.SetActive(false);
-        roomPanel.SetActive(true);
+        launcherRoomPanel.SetActive(true);
 
         if (PhotonNetwork.IsConnected)
         {
@@ -81,14 +83,14 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void OnClickCreateRoomButton()
     {
         CreateRoomPanel.SetActive(true);
-        roomPanel.SetActive(false);
+        launcherRoomPanel.SetActive(false);
 
     }
 
     public void OnClickJoinRoom()
     {
         CreateRoomPanel.SetActive(false);
-        roomPanel.SetActive(false);
+        launcherRoomPanel.SetActive(false);
         PhotonNetwork.JoinRoom(roomName.text);
 
     }
@@ -96,8 +98,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.CreateRoom(roomName.text, new RoomOptions { MaxPlayers = 0 });
         Debug.Log(roomName.text);
-        Instantiate(RoomButton);
-        roomPanel.SetActive(true);
+        GameObject RoomButtonClone = Instantiate(RoomButton);
+        RoomButtonClone.transform.SetParent(RoomsPanel.transform);
+        RoomButtonClone.transform.localScale = RoomsPanel.transform.localScale;
+        Debug.Log(RoomButtonClone.transform.localScale);
+
+        launcherRoomPanel.SetActive(true);
         CreateRoomPanel.SetActive(false);
 
     }
@@ -106,7 +112,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
-        roomPanel.SetActive(false);
+        launcherRoomPanel.SetActive(false);
         CreateRoomPanel.SetActive(false);
 
         isConnecting = false;
