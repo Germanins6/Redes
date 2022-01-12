@@ -16,11 +16,11 @@ public enum BallType
 public class Ball : MonoBehaviour
 {
 
-    [SerializeField] private float initialVelocity = 4f;
+    [SerializeField] public float initialVelocity = 2f;
     [SerializeField] private float velocityMultiplier = 1.1f;
 
     public GameObject gamemanager;
-    private Rigidbody2D ballRb;
+    public Rigidbody2D ballRb;
 
     public AudioClip wallBlip;
     public AudioClip pointBlip;
@@ -36,6 +36,7 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
+
         gamemanager = GameObject.Find("GameManager");
         ballRb = GetComponent<Rigidbody2D>();
 
@@ -50,6 +51,7 @@ public class Ball : MonoBehaviour
         float xVelocity = Random.Range(0, 2) == 0 ? 1 : -1;
         float yVelocity = Random.Range(0, 2) == 0 ? 1 : -1;
         ballRb.velocity = new Vector2(xVelocity, yVelocity) * initialVelocity;
+
         this.GetComponent<AudioSource>().PlayOneShot(launchBlip);
     }
 
@@ -57,21 +59,26 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Paddle"))
         {
-            if (Balltype == BallType.BT_None) {
+            if (Balltype == BallType.BT_None)
+            {
 
                 this.GetComponent<AudioSource>().PlayOneShot(paddleBlip);
                 ballRb.velocity *= velocityMultiplier;
             }
             else
             {
-
-            }   
+                this.GetComponent<AudioSource>().PlayOneShot(paddleBlip);
+                gamemanager.GetComponent<GameManager>().ApplyPowerUp(Balltype);
+                gamemanager.GetComponent<GameManager>().DestroyPowerUp();
+            }
         }
         else
         {
             this.GetComponent<AudioSource>().PlayOneShot(wallBlip);
         }
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -82,14 +89,30 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Goal2"))
         {
-            gamemanager.GetComponent<GameManager>().UpdateScore(2);
-            gamemanager.GetComponent<GameManager>().InitializeGame();
+            if (Balltype == BallType.BT_None)
+            {
+                gamemanager.GetComponent<GameManager>().UpdateScore(2);
+                gamemanager.GetComponent<GameManager>().InitializeGame();
+            }
+            else
+            {
+                gamemanager.GetComponent<GameManager>().DestroyPowerUp();
+            }
+
         }
-        
-        if(collision.gameObject.CompareTag("Goal1"))
+
+        if (collision.gameObject.CompareTag("Goal1"))
         {
-            gamemanager.GetComponent<GameManager>().UpdateScore(1);
-            gamemanager.GetComponent<GameManager>().InitializeGame();
+            if (Balltype == BallType.BT_None)
+            {
+                gamemanager.GetComponent<GameManager>().UpdateScore(1);
+                gamemanager.GetComponent<GameManager>().InitializeGame();
+            }
+            else
+            {
+                gamemanager.GetComponent<GameManager>().DestroyPowerUp();
+            }
+
         }
 
     }

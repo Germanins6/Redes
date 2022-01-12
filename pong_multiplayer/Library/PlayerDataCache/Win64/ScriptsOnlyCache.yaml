@@ -60,6 +60,8 @@ ScriptsOnlyBuild:
     - UnityEngine.Rendering.PostProcessing.Vignette
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.Timeline.Editor.dll:
+    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -115,37 +117,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1546}
     - Class: 114
-      Script: {instanceID: 1970}
+      Script: {instanceID: 2004}
     - Class: 114
-      Script: {instanceID: 2150}
+      Script: {instanceID: 2184}
     - Class: 114
-      Script: {instanceID: 2730}
+      Script: {instanceID: 2764}
     - Class: 114
-      Script: {instanceID: 2804}
+      Script: {instanceID: 2838}
     - Class: 114
-      Script: {instanceID: 2914}
+      Script: {instanceID: 2948}
     - Class: 114
-      Script: {instanceID: 3088}
+      Script: {instanceID: 3122}
     - Class: 114
-      Script: {instanceID: 3194}
+      Script: {instanceID: 3228}
     - Class: 114
-      Script: {instanceID: 3298}
+      Script: {instanceID: 3332}
     - Class: 114
-      Script: {instanceID: 3324}
+      Script: {instanceID: 3358}
     - Class: 114
-      Script: {instanceID: 3596}
+      Script: {instanceID: 3630}
     - Class: 114
-      Script: {instanceID: 3606}
+      Script: {instanceID: 3640}
     - Class: 114
-      Script: {instanceID: 4370}
+      Script: {instanceID: 4404}
     - Class: 114
-      Script: {instanceID: 5068}
+      Script: {instanceID: 5102}
     - Class: 114
-      Script: {instanceID: 5708}
+      Script: {instanceID: 5742}
     - Class: 114
-      Script: {instanceID: 6082}
+      Script: {instanceID: 6116}
     - Class: 114
-      Script: {instanceID: 6302}
+      Script: {instanceID: 6336}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -216,71 +218,71 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1548}
     - Class: 114
-      Script: {instanceID: 1676}
+      Script: {instanceID: 1710}
     - Class: 114
-      Script: {instanceID: 1850}
+      Script: {instanceID: 1884}
     - Class: 114
-      Script: {instanceID: 1888}
+      Script: {instanceID: 1922}
     - Class: 114
-      Script: {instanceID: 1892}
+      Script: {instanceID: 1926}
     - Class: 114
-      Script: {instanceID: 2552}
+      Script: {instanceID: 2586}
     - Class: 114
-      Script: {instanceID: 2628}
+      Script: {instanceID: 2662}
     - Class: 114
-      Script: {instanceID: 2730}
+      Script: {instanceID: 2764}
     - Class: 114
-      Script: {instanceID: 2804}
+      Script: {instanceID: 2838}
     - Class: 114
-      Script: {instanceID: 2914}
+      Script: {instanceID: 2948}
     - Class: 114
-      Script: {instanceID: 3088}
+      Script: {instanceID: 3122}
     - Class: 114
-      Script: {instanceID: 3194}
+      Script: {instanceID: 3228}
     - Class: 114
-      Script: {instanceID: 3298}
+      Script: {instanceID: 3332}
     - Class: 114
-      Script: {instanceID: 3324}
+      Script: {instanceID: 3358}
     - Class: 114
-      Script: {instanceID: 3386}
+      Script: {instanceID: 3420}
     - Class: 114
-      Script: {instanceID: 3596}
+      Script: {instanceID: 3630}
     - Class: 114
-      Script: {instanceID: 3606}
+      Script: {instanceID: 3640}
     - Class: 114
-      Script: {instanceID: 3608}
+      Script: {instanceID: 3642}
     - Class: 114
-      Script: {instanceID: 3736}
+      Script: {instanceID: 3770}
     - Class: 114
-      Script: {instanceID: 3844}
+      Script: {instanceID: 3878}
     - Class: 114
-      Script: {instanceID: 4366}
+      Script: {instanceID: 4400}
     - Class: 114
-      Script: {instanceID: 4370}
+      Script: {instanceID: 4404}
     - Class: 114
-      Script: {instanceID: 4376}
+      Script: {instanceID: 4410}
     - Class: 114
-      Script: {instanceID: 4824}
+      Script: {instanceID: 4858}
     - Class: 114
-      Script: {instanceID: 4830}
+      Script: {instanceID: 4864}
     - Class: 114
-      Script: {instanceID: 5066}
+      Script: {instanceID: 5100}
     - Class: 114
-      Script: {instanceID: 5068}
+      Script: {instanceID: 5102}
     - Class: 114
-      Script: {instanceID: 5136}
+      Script: {instanceID: 5170}
     - Class: 114
-      Script: {instanceID: 5708}
+      Script: {instanceID: 5742}
     - Class: 114
-      Script: {instanceID: 5894}
+      Script: {instanceID: 5928}
     - Class: 114
-      Script: {instanceID: 6082}
+      Script: {instanceID: 6116}
     - Class: 114
-      Script: {instanceID: 6234}
+      Script: {instanceID: 6268}
     - Class: 114
-      Script: {instanceID: 6302}
+      Script: {instanceID: 6336}
     - Class: 114
-      Script: {instanceID: 6344}
+      Script: {instanceID: 6378}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -562,7 +564,7 @@ ScriptsOnlyBuild:
     className: CountOfPlayersInRoomProperty
   - hash:
       serializedVersion: 2
-      Hash: abd4a527363882867a927ebd0744c556
+      Hash: 7a4a15aca498e63dc4cb28f0684fbc9c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -718,7 +720,7 @@ ScriptsOnlyBuild:
     className: PhotonHandler
   - hash:
       serializedVersion: 2
-      Hash: 750dee0b3bd347670af0413b44b891c3
+      Hash: 5b0c77207f9a4db44c1b1b0c22cf7037
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Ball
@@ -1854,4 +1856,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Launcher.unity
   - Assets/Scenes/Arena.unity
-  playerPath: C:/Users/germa/Downloads/Desktop/Arena/pong_multiplayer.exe
+  playerPath: C:/Users/Usuario/Desktop/PongPowers/pong_multiplayer.exe

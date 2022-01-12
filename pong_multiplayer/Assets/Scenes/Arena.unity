@@ -442,7 +442,7 @@ PrefabInstance:
     - target: {fileID: 2345212781167985480, guid: 959cb92e72c07f848a860a6c787d92ef, type: 3}
       propertyPath: ball
       value: 
-      objectReference: {fileID: 7240511504306086080, guid: 9a1b4609441a475458d56c675bb4e724, type: 3}
+      objectReference: {fileID: 5258080771984539863, guid: 5b34f2991b2bf434bb5c4abe68666163, type: 3}
     - target: {fileID: 2345212781167985480, guid: 959cb92e72c07f848a860a6c787d92ef, type: 3}
       propertyPath: paddle
       value: 
@@ -455,6 +455,10 @@ PrefabInstance:
       propertyPath: nickName
       value: 
       objectReference: {fileID: 1805191987}
+    - target: {fileID: 2345212781167985480, guid: 959cb92e72c07f848a860a6c787d92ef, type: 3}
+      propertyPath: power_up
+      value: 
+      objectReference: {fileID: 7240511504306086080, guid: 9a1b4609441a475458d56c675bb4e724, type: 3}
     - target: {fileID: 2345212781167985480, guid: 959cb92e72c07f848a860a6c787d92ef, type: 3}
       propertyPath: Player1ID
       value: 
@@ -1226,7 +1230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -175.00006, y: -75}
+  m_AnchoredPosition: {x: -175.00012, y: -75}
   m_SizeDelta: {x: 600, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1032748857
