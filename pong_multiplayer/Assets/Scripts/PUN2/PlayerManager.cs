@@ -9,21 +9,28 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 {
 
     public static GameObject LocalPlayerInstance;
-    public GameObject prefab; 
+    public GameObject prefab;
     private GameObject paddle;
 
     private const float bound = 3.75f;
-    private const float speed = 7.0f;
+    public float speed = 7.0f;
     private float side = 7.5f;
 
+    public bool isMasterClient;
     private void Start()
     {
-
+        isMasterClient = false;
+        
         if (PhotonNetwork.IsMasterClient)
+        {
             side *= -1;
+            isMasterClient = true;
+        }
 
         //normal instance dont delete paddle(?)
         paddle = PhotonNetwork.Instantiate(prefab.name, new Vector3(side, 0.0f, 0.0f), Quaternion.identity);
+
+
     }
 
     private void Update()

@@ -82,13 +82,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                         gO.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                         gO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(1, 1, 1);
                         break;
-                    //case BallType.BT_SpeedUpPaddle:
-                    //    break;
-                    //case BallType.BT_SpeedDownPaddle:
-                    //    break;
-                    //case BallType.BT_InvertRawAxis:
-                    //    break;
-                    default:
+                    case BallType.BT_SpeedUpPaddle:
+                        gO.GetComponent<PlayerManager>().speed = 7.0f;
+                        break;
+                    case BallType.BT_SpeedDownPaddle:
+                        gO.GetComponent<PlayerManager>().speed = 7.0f;
+                        break;
+                    case BallType.BT_InvertRawAxis:
+                        gO.GetComponent<PlayerManager>().speed = -gO.GetComponent<PlayerManager>().speed;
                         break;
                 }
                 StopCoroutine(ResetPowerUp(gO));
@@ -110,7 +111,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             System.DateTime time2 = System.DateTime.UtcNow;
             System.TimeSpan diff = time2 - time1;
 
-            if (diff.Seconds > 5)
+            int randomnumber2 = UnityEngine.Random.Range(10, 15);
+            if (diff.Seconds > randomnumber2)
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
@@ -118,8 +120,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                     {
                         Debug.Log("Generating PowerUp");
                         power_upGO = PhotonNetwork.Instantiate(this.power_up.name, new Vector3(0.0f, 2.0f, 0.0f), Quaternion.identity);
-                        //Generate random number between 0 and 1
-                        int randomNumber = UnityEngine.Random.Range(0, 1);
+                        //Generate random number between 0 and 5
+                        int randomNumber = UnityEngine.Random.Range(0, 5);
+                        Debug.Log("Random Number: " + randomNumber);
                         power_upGO.GetComponent<Ball>().Balltype = (BallType)randomNumber;
                         time1 = System.DateTime.UtcNow;
 
@@ -147,29 +150,75 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
-    public void ApplyPowerUp(BallType type)
+    public void ApplyPowerUp(BallType type, int paddle_id)
     {
+        bool isMaster = false;
+
+        if (paddle_id != -1)
+        {
+
+            if (paddle_id == 1)
+            {
+                //Get Master Client's paddle
+                try
+                {
+                    isMaster = true;
+                }
+                catch (Exception e)
+                {
+                }
+                try
+                {
+                    isMaster = true;
+                }
+                catch (Exception e)
+                {
+                }
+            }
+            else
+            {
+                //Get Other Client's paddle
+                isMaster = false;
+
+            }
+        }
+
         switch (type)
         {
             case BallType.BT_IncreaseBallSize:
                 Debug.Log("Increase Ball Size");
                 ballGO.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                 ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(2, 2, 2);
-                StartCoroutine(ResetPowerUp(ballGO));
                 break;
             case BallType.BT_DecreaseBallSize:
                 Debug.Log("Decrease Ball Size");
-                ballGO.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
-                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                StartCoroutine(ResetPowerUp(ballGO));
+                ballGO.transform.localScale = new Vector3(0.075f, 0.075f, 0.075f);
+                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
                 break;
-            //case BallType.BT_SpeedUpPaddle:
-            //    break;
-            //case BallType.BT_SpeedDownPaddle:
-            //    break;
-            //case BallType.BT_InvertRawAxis:
-            //    break;
-            default:
+            case BallType.BT_SpeedUpPaddle:
+                Debug.Log("Speed Up Paddle");
+                if (PhotonNetwork.IsMasterClient && isMaster)
+                    this.GetComponent<PlayerManager>().speed = 9.5f;
+                else
+                    this.GetComponent<PlayerManager>().speed = 9.5f;
+                //StartCoroutine(ResetPowerUp(paddleGO));
+                break;
+            case BallType.BT_SpeedDownPaddle:
+                Debug.Log("Speed Down Paddle");
+                if (PhotonNetwork.IsMasterClient && isMaster)
+                    this.GetComponent<PlayerManager>().speed = 3.5f;
+                else
+                    this.GetComponent<PlayerManager>().speed = 3.5f;
+                //StartCoroutine(ResetPowerUp(paddleGO));
+                break;
+            case BallType.BT_InvertRawAxis:
+                Debug.Log("Invert Raw Axis");
+                if (PhotonNetwork.IsMasterClient && isMaster)
+                    this.GetComponent<PlayerManager>().speed = -this.GetComponent<PlayerManager>().speed;
+                else
+                    this.GetComponent<PlayerManager>().speed = -this.GetComponent<PlayerManager>().speed;
+
+                //StartCoroutine(ResetPowerUp(paddleGO));
                 break;
         }
     }
@@ -229,16 +278,4 @@ public class GameManager : MonoBehaviourPunCallbacks
         playingGame = true;
     }
 
-    public void CreatePowerUp(BallType type)
-    {
-
-
-        switch (type)
-        {
-            case BallType.BT_IncreaseBallSize:
-                break;
-            case BallType.BT_DecreaseBallSize:
-                break;
-        }
-    }
 }

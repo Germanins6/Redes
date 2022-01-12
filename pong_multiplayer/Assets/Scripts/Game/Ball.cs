@@ -8,9 +8,9 @@ public enum BallType
 
     BT_IncreaseBallSize,
     BT_DecreaseBallSize,
-    //BT_SpeedUpPaddle,
-    //BT_SpeedDownPaddle,
-    //BT_InvertRawAxis,
+    BT_SpeedUpPaddle,
+    BT_SpeedDownPaddle,
+    BT_InvertRawAxis,
     BT_Max
 }
 public class Ball : MonoBehaviour
@@ -68,8 +68,7 @@ public class Ball : MonoBehaviour
             else
             {
                 this.GetComponent<AudioSource>().PlayOneShot(paddleBlip);
-                gamemanager.GetComponent<GameManager>().ApplyPowerUp(Balltype);
-                gamemanager.GetComponent<GameManager>().DestroyPowerUp();
+                CheckPowerUp(collision.gameObject);
             }
         }
         else
@@ -78,7 +77,20 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private void CheckPowerUp(GameObject gO)
+    {
+        if (Balltype == BallType.BT_DecreaseBallSize || Balltype == BallType.BT_IncreaseBallSize)
+            gamemanager.GetComponent<GameManager>().ApplyPowerUp(Balltype, -1);
+        else
+        {
+            if (gO.transform.position.x < 0.0f)
+                gamemanager.GetComponent<GameManager>().ApplyPowerUp(Balltype, 1);
+            else
+                gamemanager.GetComponent<GameManager>().ApplyPowerUp(Balltype, 2);
+        }
 
+        gamemanager.GetComponent<GameManager>().DestroyPowerUp();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
