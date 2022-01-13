@@ -422,7 +422,7 @@ MonoBehaviour:
   launcherRoomPanel: {fileID: 1087973082}
   CreateRoomPanel: {fileID: 1263202805}
   RoomsPanel: {fileID: 974642311}
-  RoomButton: {fileID: 4060684507011305841, guid: 426745c0c3bc40e41b803eeccfcbd222, type: 3}
+  RoomButton: {fileID: 46287089303142358, guid: 426745c0c3bc40e41b803eeccfcbd222, type: 3}
   progressLabel: {fileID: 130661879}
   roomName: {fileID: 603630409}
 --- !u!4 &160716723
@@ -1766,12 +1766,12 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 1
   m_CellSize: {x: 351.66, y: 100}
   m_Spacing: {x: 0, y: 0}
-  m_Constraint: 1
+  m_Constraint: 0
   m_ConstraintCount: 1
 --- !u!114 &1094875617
 MonoBehaviour:

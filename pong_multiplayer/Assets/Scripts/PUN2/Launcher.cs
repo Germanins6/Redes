@@ -97,12 +97,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(roomName.text, new RoomOptions { MaxPlayers = 0 });
-        Debug.Log(roomName.text);
         GameObject RoomButtonClone = Instantiate(RoomButton);
         RoomButtonClone.transform.SetParent(RoomsPanel.transform);
         RoomButtonClone.transform.localScale = RoomsPanel.transform.localScale;
-        Debug.Log(RoomButtonClone.transform.localScale);
-
+        Text temp_text = RoomButtonClone.GetComponentInChildren<Text>();
+        temp_text.text = roomName.text;
+        Debug.Log(temp_text.text);
         launcherRoomPanel.SetActive(true);
         CreateRoomPanel.SetActive(false);
 
