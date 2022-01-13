@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public bool playingGame = false;
 
-
     //If we reach this room CORUTINE game start and spawn a ball
     public void Start()
     {
@@ -47,10 +46,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         Player1ID.text = PhotonNetwork.PlayerList[0].NickName;
         Player2ID.text = PhotonNetwork.PlayerList[1].NickName;
 
-
         StartCoroutine(GeneratePowerUp());
     }
-
     public void Update()
     {
         if (ballGO != null)
@@ -62,50 +59,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             LeaveRoom();
     }
 
-    IEnumerator ResetPowerUp(GameObject gO)
-    {
-        System.DateTime time1 = System.DateTime.UtcNow;
-
-        while (true)
-        {
-            System.DateTime time2 = System.DateTime.UtcNow;
-            System.TimeSpan diff = time2 - time1;
-            if (diff.Seconds > 10)
-            {
-                switch (gO.GetComponent<Ball>().Balltype)
-                {
-                    case BallType.BT_IncreaseBallSize:
-                        gO.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                        gO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(1, 1, 1);
-                        break;
-                    case BallType.BT_DecreaseBallSize:
-                        gO.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                        gO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(1, 1, 1);
-                        break;
-                    case BallType.BT_SpeedUpPaddle:
-                        gO.GetComponent<PlayerManager>().speed = 7.0f;
-                        break;
-                    case BallType.BT_SpeedDownPaddle:
-                        gO.GetComponent<PlayerManager>().speed = 7.0f;
-                        break;
-                    case BallType.BT_InvertRawAxis:
-                        gO.GetComponent<PlayerManager>().speed = -gO.GetComponent<PlayerManager>().speed;
-                        break;
-                }
-                StopCoroutine(ResetPowerUp(gO));
-                time1 = System.DateTime.UtcNow;
-
-            }
-            yield return null;
-        }
-    }
+    #region PowerUp
 
     IEnumerator GeneratePowerUp()
     {
         System.DateTime time1 = System.DateTime.UtcNow;
-        //Debug.Log("Starting Coroutine!");
 
-        //if time passed is greater than 10 seconds, update vertices
         while (true)
         {
             System.DateTime time2 = System.DateTime.UtcNow;
@@ -134,7 +93,51 @@ public class GameManager : MonoBehaviourPunCallbacks
             yield return null;
         }
     }
+    public void ApplyPowerUp(BallType type, int paddle_id)
+    {
+        switch (type)
+        {
+            case BallType.BT_IncreaseBallSize:
+                Debug.Log("Increase Ball Size");
+                ballGO.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
+                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                StartCoroutine(ResetPowerUp(ballGO, BallType.BT_IncreaseBallSize, paddle_id));
 
+                break;
+            case BallType.BT_DecreaseBallSize:
+                Debug.Log("Decrease Ball Size");
+                ballGO.transform.localScale = new Vector3(0.075f, 0.075f, 0.075f);
+                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                StartCoroutine(ResetPowerUp(ballGO, BallType.BT_DecreaseBallSize, paddle_id));
+
+                break;
+            case BallType.BT_SpeedUpPaddle:
+                Debug.Log("Speed Up Paddle");
+                if (paddle_id == 1)
+                    this.GetComponent<PlayerManager>().speed1 = 9.5f;
+                else
+                    this.GetComponent<PlayerManager>().speed2 = 9.5f;
+                StartCoroutine(ResetPowerUp(null, BallType.BT_SpeedUpPaddle, paddle_id));
+                break;
+            case BallType.BT_SpeedDownPaddle:
+                Debug.Log("Speed Down Paddle");
+                if (paddle_id == 1)
+                    this.GetComponent<PlayerManager>().speed1 = 3.5f;
+                else
+                    this.GetComponent<PlayerManager>().speed2 = 3.5f;
+                StartCoroutine(ResetPowerUp(null, BallType.BT_SpeedDownPaddle, paddle_id));
+                break;
+            case BallType.BT_InvertRawAxis:
+                Debug.Log("Invert Raw Axis");
+                if (paddle_id == 1)
+                    this.GetComponent<PlayerManager>().speed1 = -this.GetComponent<PlayerManager>().speed1;
+                else
+                    this.GetComponent<PlayerManager>().speed2 = -this.GetComponent<PlayerManager>().speed2;
+
+                StartCoroutine(ResetPowerUp(null, BallType.BT_InvertRawAxis, paddle_id));
+                break;
+        }
+    }
     public void DestroyPowerUp()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -149,79 +152,64 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
     }
-
-    public void ApplyPowerUp(BallType type, int paddle_id)
+    IEnumerator ResetPowerUp(GameObject gO, BallType type, int player_id)
     {
-        bool isMaster = false;
+        System.DateTime time1 = System.DateTime.UtcNow;
 
-        if (paddle_id != -1)
+        while (true)
         {
-
-            if (paddle_id == 1)
+            System.DateTime time2 = System.DateTime.UtcNow;
+            System.TimeSpan diff = time2 - time1;
+            if (diff.Seconds > 10)
             {
-                //Get Master Client's paddle
-                try
+                switch (type)
                 {
-                    isMaster = true;
+                    case BallType.BT_IncreaseBallSize:
+                        if (gO != null)
+                        {
+                            gO.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                            gO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(1, 1, 1);
+                        }
+                        break;
+                    case BallType.BT_DecreaseBallSize:
+                        if (gO != null)
+                        {
+                            gO.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                            gO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(1, 1, 1);
+                        }
+                        break;
+                    case BallType.BT_SpeedUpPaddle:
+                        if (player_id == 1)
+                            this.GetComponent<PlayerManager>().speed1 = 7.0f;
+                        else
+                            this.GetComponent<PlayerManager>().speed2 = 7.0f;
+                        break;
+                    case BallType.BT_SpeedDownPaddle:
+                        if (player_id == 1)
+                            this.GetComponent<PlayerManager>().speed1 = 7.0f;
+                        else
+                            this.GetComponent<PlayerManager>().speed2 = 7.0f;
+                        break;
+                    case BallType.BT_InvertRawAxis:
+                        if (player_id == 1)
+                            if (this.GetComponent<PlayerManager>().speed1 < 0.0f)
+                                this.GetComponent<PlayerManager>().speed1 = -this.GetComponent<PlayerManager>().speed1;
+                            else
+                        if (this.GetComponent<PlayerManager>().speed1 < 0.0f)
+                                this.GetComponent<PlayerManager>().speed2 = -this.GetComponent<PlayerManager>().speed2;
+                        break;
                 }
-                catch (Exception e)
-                {
-                }
-                try
-                {
-                    isMaster = true;
-                }
-                catch (Exception e)
-                {
-                }
-            }
-            else
-            {
-                //Get Other Client's paddle
-                isMaster = false;
+                //time1 = System.DateTime.UtcNow;
 
             }
-        }
-
-        switch (type)
-        {
-            case BallType.BT_IncreaseBallSize:
-                Debug.Log("Increase Ball Size");
-                ballGO.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
-                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(2, 2, 2);
-                break;
-            case BallType.BT_DecreaseBallSize:
-                Debug.Log("Decrease Ball Size");
-                ballGO.transform.localScale = new Vector3(0.075f, 0.075f, 0.075f);
-                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-                break;
-            case BallType.BT_SpeedUpPaddle:
-                Debug.Log("Speed Up Paddle");
-                if (PhotonNetwork.IsMasterClient && isMaster)
-                    this.GetComponent<PlayerManager>().speed = 9.5f;
-                else
-                    this.GetComponent<PlayerManager>().speed = 9.5f;
-                //StartCoroutine(ResetPowerUp(paddleGO));
-                break;
-            case BallType.BT_SpeedDownPaddle:
-                Debug.Log("Speed Down Paddle");
-                if (PhotonNetwork.IsMasterClient && isMaster)
-                    this.GetComponent<PlayerManager>().speed = 3.5f;
-                else
-                    this.GetComponent<PlayerManager>().speed = 3.5f;
-                //StartCoroutine(ResetPowerUp(paddleGO));
-                break;
-            case BallType.BT_InvertRawAxis:
-                Debug.Log("Invert Raw Axis");
-                if (PhotonNetwork.IsMasterClient && isMaster)
-                    this.GetComponent<PlayerManager>().speed = -this.GetComponent<PlayerManager>().speed;
-                else
-                    this.GetComponent<PlayerManager>().speed = -this.GetComponent<PlayerManager>().speed;
-
-                //StartCoroutine(ResetPowerUp(paddleGO));
-                break;
+            yield return null;
         }
     }
+
+    #endregion
+
+    #region Photon Callbacks
+
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(0);
@@ -268,9 +256,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (ballGO != null)
                 PhotonNetwork.Destroy(ballGO);
 
-            /*if (power_upGO != null)
-                PhotonNetwork.Destroy(power_upGO);*/
-
             ballGO = PhotonNetwork.Instantiate(this.ball.name, Vector3.zero, Quaternion.identity);
         }
 
@@ -278,4 +263,5 @@ public class GameManager : MonoBehaviourPunCallbacks
         playingGame = true;
     }
 
+    #endregion
 }

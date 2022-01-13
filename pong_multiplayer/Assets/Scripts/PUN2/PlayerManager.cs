@@ -13,19 +13,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     private GameObject paddle;
 
     private const float bound = 3.75f;
-    public float speed = 7.0f;
+    public float speed1 = 7.0f;
+    public float speed2 = 7.0f;
+
     private float side = 7.5f;
 
-    public bool isMasterClient;
     private void Start()
     {
-        isMasterClient = false;
-        
         if (PhotonNetwork.IsMasterClient)
-        {
             side *= -1;
-            isMasterClient = true;
-        }
+        
 
         //normal instance dont delete paddle(?)
         paddle = PhotonNetwork.Instantiate(prefab.name, new Vector3(side, 0.0f, 0.0f), Quaternion.identity);
@@ -42,7 +39,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public void GetInput()
     {
         float movement = Input.GetAxisRaw("Vertical");
-        paddle.transform.position = new Vector3(paddle.transform.position.x, Mathf.Clamp(paddle.transform.position.y + movement * speed * Time.deltaTime, -bound, bound), 0.0f);
+
+        if(PhotonNetwork.IsMasterClient)
+            paddle.transform.position = new Vector3(paddle.transform.position.x, Mathf.Clamp(paddle.transform.position.y + movement * speed1 * Time.deltaTime, -bound, bound), 0.0f);
+        else
+            paddle.transform.position = new Vector3(paddle.transform.position.x, Mathf.Clamp(paddle.transform.position.y + movement * speed1 * Time.deltaTime, -bound, bound), 0.0f);
+
     }
 
     //Creates paddle just once as gO
