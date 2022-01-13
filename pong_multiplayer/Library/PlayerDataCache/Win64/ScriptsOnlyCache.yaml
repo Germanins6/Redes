@@ -29,7 +29,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -60,6 +59,8 @@ ScriptsOnlyBuild:
     - UnityEngine.Rendering.PostProcessing.Vignette
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.Timeline.Editor.dll:
+    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -115,37 +116,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1546}
     - Class: 114
-      Script: {instanceID: 1974}
+      Script: {instanceID: 1990}
     - Class: 114
-      Script: {instanceID: 2154}
+      Script: {instanceID: 2170}
     - Class: 114
-      Script: {instanceID: 2734}
+      Script: {instanceID: 2748}
     - Class: 114
-      Script: {instanceID: 2808}
+      Script: {instanceID: 2822}
     - Class: 114
-      Script: {instanceID: 2918}
+      Script: {instanceID: 2932}
     - Class: 114
-      Script: {instanceID: 3092}
+      Script: {instanceID: 3106}
     - Class: 114
-      Script: {instanceID: 3198}
+      Script: {instanceID: 3212}
     - Class: 114
-      Script: {instanceID: 3302}
+      Script: {instanceID: 3316}
     - Class: 114
-      Script: {instanceID: 3328}
+      Script: {instanceID: 3342}
     - Class: 114
-      Script: {instanceID: 3600}
+      Script: {instanceID: 3614}
     - Class: 114
-      Script: {instanceID: 3610}
+      Script: {instanceID: 3624}
     - Class: 114
-      Script: {instanceID: 4374}
+      Script: {instanceID: 4388}
     - Class: 114
-      Script: {instanceID: 5072}
+      Script: {instanceID: 5082}
     - Class: 114
-      Script: {instanceID: 5712}
+      Script: {instanceID: 5722}
     - Class: 114
-      Script: {instanceID: 6086}
+      Script: {instanceID: 6094}
     - Class: 114
-      Script: {instanceID: 6306}
+      Script: {instanceID: 6312}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -216,71 +217,71 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1548}
     - Class: 114
-      Script: {instanceID: 1680}
+      Script: {instanceID: 1696}
     - Class: 114
-      Script: {instanceID: 1854}
+      Script: {instanceID: 1870}
     - Class: 114
-      Script: {instanceID: 1892}
+      Script: {instanceID: 1908}
     - Class: 114
-      Script: {instanceID: 1896}
+      Script: {instanceID: 1912}
     - Class: 114
-      Script: {instanceID: 2556}
+      Script: {instanceID: 2570}
     - Class: 114
-      Script: {instanceID: 2632}
+      Script: {instanceID: 2646}
     - Class: 114
-      Script: {instanceID: 2734}
+      Script: {instanceID: 2748}
     - Class: 114
-      Script: {instanceID: 2808}
+      Script: {instanceID: 2822}
     - Class: 114
-      Script: {instanceID: 2918}
+      Script: {instanceID: 2932}
     - Class: 114
-      Script: {instanceID: 3092}
+      Script: {instanceID: 3106}
     - Class: 114
-      Script: {instanceID: 3198}
+      Script: {instanceID: 3212}
     - Class: 114
-      Script: {instanceID: 3302}
+      Script: {instanceID: 3316}
     - Class: 114
-      Script: {instanceID: 3328}
+      Script: {instanceID: 3342}
     - Class: 114
-      Script: {instanceID: 3390}
+      Script: {instanceID: 3404}
     - Class: 114
-      Script: {instanceID: 3600}
+      Script: {instanceID: 3614}
     - Class: 114
-      Script: {instanceID: 3610}
+      Script: {instanceID: 3624}
     - Class: 114
-      Script: {instanceID: 3612}
+      Script: {instanceID: 3626}
     - Class: 114
-      Script: {instanceID: 3740}
+      Script: {instanceID: 3754}
     - Class: 114
-      Script: {instanceID: 3848}
+      Script: {instanceID: 3862}
     - Class: 114
-      Script: {instanceID: 4370}
+      Script: {instanceID: 4384}
     - Class: 114
-      Script: {instanceID: 4374}
+      Script: {instanceID: 4388}
     - Class: 114
-      Script: {instanceID: 4380}
+      Script: {instanceID: 4394}
     - Class: 114
-      Script: {instanceID: 4828}
+      Script: {instanceID: 4838}
     - Class: 114
-      Script: {instanceID: 4834}
+      Script: {instanceID: 4844}
     - Class: 114
-      Script: {instanceID: 5070}
+      Script: {instanceID: 5080}
     - Class: 114
-      Script: {instanceID: 5072}
+      Script: {instanceID: 5082}
     - Class: 114
-      Script: {instanceID: 5140}
+      Script: {instanceID: 5150}
     - Class: 114
-      Script: {instanceID: 5712}
+      Script: {instanceID: 5722}
     - Class: 114
-      Script: {instanceID: 5898}
+      Script: {instanceID: 5906}
     - Class: 114
-      Script: {instanceID: 6086}
+      Script: {instanceID: 6094}
     - Class: 114
-      Script: {instanceID: 6238}
+      Script: {instanceID: 6244}
     - Class: 114
-      Script: {instanceID: 6306}
+      Script: {instanceID: 6312}
     - Class: 114
-      Script: {instanceID: 6348}
+      Script: {instanceID: 6354}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1854,4 +1855,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Launcher.unity
   - Assets/Scenes/Arena.unity
-  playerPath: C:/Users/Usuario/Desktop/PongPowers/pong_multiplayer.exe
+  playerPath: C:/Users/usuario/Documents/GitHub/Redes/pong_multiplayer/d/pong_multiplayer.exe

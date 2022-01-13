@@ -51,8 +51,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void Update()
     {
         if (ballGO != null)
+            //if (Input.GetKeyDown(KeyCode.Space) && PhotonNetwork.IsMasterClient)
+            //    ballGO.GetComponent<Ball>().Launch();
             if (Input.GetKeyDown(KeyCode.Space) && PhotonNetwork.IsMasterClient)
-                ballGO.GetComponent<Ball>().Launch();
+                ballGO.GetComponent<Ball>().transform.localPosition = new Vector3(0,0,0);
 
         //If player presses escape button leaves application and reach lobby again
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         Debug.Log("Generating PowerUp");
                         power_upGO = PhotonNetwork.Instantiate(this.power_up.name, new Vector3(0.0f, 2.0f, 0.0f), Quaternion.identity);
                         //Generate random number between 0 and 5
-                        int randomNumber = UnityEngine.Random.Range(0, 5);
+                        int randomNumber = UnityEngine.Random.Range(4, 4);
                         Debug.Log("Random Number: " + randomNumber);
                         power_upGO.GetComponent<Ball>().Balltype = (BallType)randomNumber;
                         time1 = System.DateTime.UtcNow;
@@ -106,8 +108,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 break;
             case BallType.BT_DecreaseBallSize:
                 Debug.Log("Decrease Ball Size");
-                ballGO.transform.localScale = new Vector3(0.075f, 0.075f, 0.075f);
-                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                ballGO.transform.localScale = new Vector3(0.0165f, 0.0165f, 0.0165f);
+                ballGO.GetComponent<Ball>().ballRb.transform.localScale = new Vector3(0.063f, 0.063f, 0.063f);
                 StartCoroutine(ResetPowerUp(ballGO, BallType.BT_DecreaseBallSize, paddle_id));
 
                 break;
@@ -130,7 +132,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             case BallType.BT_InvertRawAxis:
                 Debug.Log("Invert Raw Axis");
                 if (paddle_id == 1)
-                    this.GetComponent<PlayerManager>().speed1 = -this.GetComponent<PlayerManager>().speed1;
+                {
+                    this.GetComponent<PlayerManager>().speed1 *= -1;
+                    Debug.LogWarning( this.GetComponent<PlayerManager>().speed1);
+                }
                 else
                     this.GetComponent<PlayerManager>().speed2 = -this.GetComponent<PlayerManager>().speed2;
 
@@ -160,7 +165,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             System.DateTime time2 = System.DateTime.UtcNow;
             System.TimeSpan diff = time2 - time1;
-            if (diff.Seconds > 10)
+            
+            if (diff.Seconds > 7)
             {
                 switch (type)
                 {
@@ -193,13 +199,17 @@ public class GameManager : MonoBehaviourPunCallbacks
                     case BallType.BT_InvertRawAxis:
                         if (player_id == 1)
                             if (this.GetComponent<PlayerManager>().speed1 < 0.0f)
-                                this.GetComponent<PlayerManager>().speed1 = -this.GetComponent<PlayerManager>().speed1;
+                            {
+                                this.GetComponent<PlayerManager>().speed1 *= -1;
+                                Debug.LogWarning("After reset:"+ this.GetComponent<PlayerManager>().speed1 );
+                            }
                             else
-                        if (this.GetComponent<PlayerManager>().speed1 < 0.0f)
-                                this.GetComponent<PlayerManager>().speed2 = -this.GetComponent<PlayerManager>().speed2;
+                        if (this.GetComponent<PlayerManager>().speed2 < 0.0f)
+                                this.GetComponent<PlayerManager>().speed2 *= -1;
                         break;
                 }
-                //time1 = System.DateTime.UtcNow;
+                time1 = System.DateTime.UtcNow;
+                StopCoroutine(ResetPowerUp(gO,type,player_id));
 
             }
             yield return null;

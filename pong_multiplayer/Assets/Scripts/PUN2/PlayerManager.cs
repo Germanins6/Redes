@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
             paddle.transform.position = new Vector3(paddle.transform.position.x, Mathf.Clamp(paddle.transform.position.y + movement * speed1 * Time.deltaTime, -bound, bound), 0.0f);
         else
-            paddle.transform.position = new Vector3(paddle.transform.position.x, Mathf.Clamp(paddle.transform.position.y + movement * speed1 * Time.deltaTime, -bound, bound), 0.0f);
+            paddle.transform.position = new Vector3(paddle.transform.position.x, Mathf.Clamp(paddle.transform.position.y + movement * speed2 * Time.deltaTime, -bound, bound), 0.0f);
 
     }
 
