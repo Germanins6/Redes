@@ -82,12 +82,30 @@ public class GameManager : MonoBehaviourPunCallbacks
                         Debug.Log("Generating PowerUp");
                         power_upGO = PhotonNetwork.Instantiate(this.power_up.name, new Vector3(0.0f, 2.0f, 0.0f), Quaternion.identity);
                         //Generate random number between 0 and 5
-                        int randomNumber = UnityEngine.Random.Range(4, 4);
+                        int randomNumber = UnityEngine.Random.Range(0, 4);
                         Debug.Log("Random Number: " + randomNumber);
                         power_upGO.GetComponent<Ball>().Balltype = (BallType)randomNumber;
                         time1 = System.DateTime.UtcNow;
 
                     }
+                }
+                else {
+
+                    if (power_upGO == null)
+                    {
+                        Debug.Log("Generating PowerUp");
+                        power_upGO = PhotonNetwork.Instantiate(this.power_up.name, new Vector3(0.0f, 2.0f, 0.0f), Quaternion.identity);
+                        //Generate random number between 0 and 5
+                        int randomNumber = UnityEngine.Random.Range(0, 4);
+                        Debug.Log("Random Number: " + randomNumber);
+                        power_upGO.GetComponent<Ball>().Balltype = (BallType)randomNumber;
+                        time1 = System.DateTime.UtcNow;
+
+                    }
+
+
+
+
                 }
 
             }
